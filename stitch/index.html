@@ -1,0 +1,350 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>PAGINA CKDEV | Stitch Local</title>
+  <style>
+    :root {
+      --bg: #10131a;
+      --panel: rgba(18, 25, 37, 0.88);
+      --panel-strong: #162031;
+      --text: #edf2f7;
+      --muted: #9eb0c8;
+      --line: rgba(255, 255, 255, 0.08);
+      --accent: #65d6ce;
+      --accent-2: #f5b971;
+      --accent-3: #90cdf4;
+      --shadow: 0 20px 60px rgba(0, 0, 0, 0.32);
+      --radius: 22px;
+      --mono: "IBM Plex Mono", "JetBrains Mono", monospace;
+      --sans: "Space Grotesk", "Segoe UI", sans-serif;
+    }
+
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: var(--sans);
+      color: var(--text);
+      background:
+        radial-gradient(circle at top left, rgba(101, 214, 206, 0.18), transparent 30%),
+        radial-gradient(circle at top right, rgba(245, 185, 113, 0.14), transparent 25%),
+        linear-gradient(180deg, #0b0f15 0%, #111722 100%);
+      min-height: 100vh;
+    }
+
+    a { color: inherit; }
+    .wrap {
+      width: min(1180px, calc(100% - 32px));
+      margin: 0 auto;
+      padding: 32px 0 56px;
+    }
+
+    .hero, .panel {
+      background: var(--panel);
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      backdrop-filter: blur(16px);
+    }
+
+    .hero {
+      padding: 28px;
+      display: grid;
+      gap: 22px;
+      margin-bottom: 24px;
+    }
+
+    .eyebrow {
+      display: inline-flex;
+      gap: 10px;
+      align-items: center;
+      color: var(--accent);
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      font-size: 12px;
+    }
+
+    .dot {
+      width: 10px;
+      height: 10px;
+      border-radius: 999px;
+      background: var(--accent);
+      box-shadow: 0 0 16px var(--accent);
+    }
+
+    h1, h2 { margin: 0; }
+    h1 { font-size: clamp(2rem, 6vw, 4rem); line-height: 0.95; }
+    h2 { font-size: 1.2rem; margin-bottom: 16px; }
+    p { margin: 0; color: var(--muted); }
+
+    .hero-grid {
+      display: grid;
+      gap: 16px;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    }
+
+    .stat {
+      background: var(--panel-strong);
+      border: 1px solid var(--line);
+      border-radius: 18px;
+      padding: 18px;
+    }
+
+    .stat strong {
+      display: block;
+      font-size: 1.1rem;
+      margin-bottom: 6px;
+    }
+
+    .actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 46px;
+      padding: 0 18px;
+      border-radius: 999px;
+      border: 1px solid var(--line);
+      text-decoration: none;
+      font-weight: 700;
+      background: rgba(255, 255, 255, 0.04);
+    }
+
+    .btn.primary {
+      background: linear-gradient(135deg, var(--accent), var(--accent-3));
+      color: #06131c;
+      border: none;
+    }
+
+    .layout {
+      display: grid;
+      gap: 24px;
+    }
+
+    .panel {
+      padding: 22px;
+    }
+
+    .table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.95rem;
+    }
+
+    .table th, .table td {
+      border-top: 1px solid var(--line);
+      padding: 12px 10px;
+      text-align: left;
+      vertical-align: top;
+    }
+
+    .table th {
+      color: var(--accent-3);
+      font-size: 0.82rem;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+    }
+
+    .badge {
+      display: inline-block;
+      padding: 5px 10px;
+      border-radius: 999px;
+      font-size: 0.78rem;
+      font-weight: 700;
+      background: rgba(101, 214, 206, 0.12);
+      color: var(--accent);
+      border: 1px solid rgba(101, 214, 206, 0.16);
+    }
+
+    .cards {
+      display: grid;
+      gap: 16px;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    }
+
+    .card {
+      border: 1px solid var(--line);
+      border-radius: 18px;
+      overflow: hidden;
+      background: rgba(255, 255, 255, 0.03);
+    }
+
+    .shot {
+      aspect-ratio: 16 / 10;
+      background: linear-gradient(135deg, rgba(101, 214, 206, 0.12), rgba(144, 205, 244, 0.06));
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--muted);
+      font-size: 0.9rem;
+    }
+
+    .shot img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+
+    .card-body {
+      padding: 16px;
+      display: grid;
+      gap: 10px;
+    }
+
+    .meta {
+      font-family: var(--mono);
+      font-size: 0.82rem;
+      color: var(--muted);
+      word-break: break-word;
+    }
+
+    .links {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+
+    .links a {
+      text-decoration: none;
+      font-size: 0.9rem;
+      padding: 8px 12px;
+      border-radius: 999px;
+      border: 1px solid var(--line);
+      background: rgba(255, 255, 255, 0.03);
+    }
+
+    code { font-family: var(--mono); }
+
+    @media (max-width: 720px) {
+      .wrap { width: min(100% - 20px, 1180px); }
+      .hero, .panel { padding: 18px; }
+      .table { display: block; overflow-x: auto; }
+    }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <section class="hero">
+      <div class="eyebrow"><span class="dot"></span> Stitch local workspace</div>
+      <div>
+        <h1>PAGINA CKDEV</h1>
+        <p>Projeto importado da sua conta Stitch, com mapa de telas, variacoes exportadas e versoes locais prontas para comparar e editar.</p>
+      </div>
+      <div class="actions">
+        <a class="btn primary" href="/index.html">Abrir site principal</a>
+        <a class="btn" href="/stitch/project-map.json">Abrir manifesto JSON</a>
+      </div>
+      <div class="hero-grid">
+        <div class="stat"><strong>ID</strong><span class="meta">3842299826048739550</span></div>
+        <div class="stat"><strong>Tipo</strong><span class="meta">TEXT_TO_UI_PRO</span></div>
+        <div class="stat"><strong>Visibilidade</strong><span class="meta">PRIVATE</span></div>
+        <div class="stat"><strong>Atualizado</strong><span class="meta">2026-03-18T18:32:06.504115Z</span></div>
+      </div>
+    </section>
+
+    <section class="panel">
+      <h2>Mapa das instancias no canvas</h2>
+      <table class="table">
+        <thead>
+          <tr>
+            <th>Instancia</th>
+            <th>Source screen</th>
+            <th>Posicao</th>
+            <th>Dimensoes</th>
+            <th>Tipo</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr><td><code>17b55cb8fa7a4d36a1e11a3d4fe79e7b</code></td><td><code>17b55cb8fa7a4d36a1e11a3d4fe79e7b</code></td><td>x 4517, y 4137</td><td>1280 x 4213</td><td><span class="badge">SCREEN</span></td></tr>
+          <tr><td><code>17c85117-10fc-4901-b805-c9d67da107b8</code></td><td><code>4210498955920685772</code></td><td>x 1328, y n/d</td><td>600 x 900</td><td><span class="badge">SCREEN_INSTANCE</span></td></tr>
+          <tr><td><code>50dabfbf4673443e8672ed7a08e6eec0</code></td><td><code>50dabfbf4673443e8672ed7a08e6eec0</code></td><td>x 1992, y n/d</td><td>1280 x 1024</td><td><span class="badge">SCREEN</span></td></tr>
+          <tr><td><code>60f34545-44d9-4b1c-82eb-cf90a56923d3</code></td><td><code>4210498955920683161</code></td><td>x 664, y n/d</td><td>600 x 900</td><td><span class="badge">SCREEN_INSTANCE</span></td></tr>
+          <tr><td><code>681a54e0a2b74037a335d43468b643f9</code></td><td><code>681a54e0a2b74037a335d43468b643f9</code></td><td>x -2611, y 4137</td><td>7065 x 4624</td><td><span class="badge">SCREEN</span></td></tr>
+          <tr><td><code>83858a15a676475ea8103c4ebe2f6649</code></td><td><code>83858a15a676475ea8103c4ebe2f6649</code></td><td>x 5861, y 4137</td><td>1280 x 1024</td><td><span class="badge">SCREEN</span></td></tr>
+          <tr><td><code>c0cf4999eb0148018f9430961005ee8c</code></td><td><code>c0cf4999eb0148018f9430961005ee8c</code></td><td>x n/d, y 1280</td><td>1280 x 2107</td><td><span class="badge">SCREEN</span></td></tr>
+          <tr><td><code>fb0b5d26-4e07-4504-80ae-35bf0d2a5c1d</code></td><td><code>4210498955920684646</code></td><td>x n/d, y n/d</td><td>600 x 900</td><td><span class="badge">SCREEN_INSTANCE</span></td></tr>
+        </tbody>
+      </table>
+    </section>
+
+    <section class="panel">
+      <h2>Arquivos-base para rodar local</h2>
+      <div class="cards">
+        <article class="card">
+          <div class="card-body">
+            <strong>Landing consolidada</strong>
+            <div class="meta">index.html + assets/css/site.css + assets/js/main.js + assets/vendor/lucide.min.js</div>
+            <div class="links">
+              <a href="/index.html">Abrir index.html</a>
+              <a href="/assets/css/site.css">Abrir site.css</a>
+              <a href="/assets/js/main.js">Abrir main.js</a>
+              <a href="/assets/vendor/lucide.min.js">Abrir lucide local</a>
+            </div>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <section class="panel">
+      <h2>Telas exportadas e versoes resolvidas</h2>
+      <div class="cards">
+        <article class="card">
+          <div class="shot"><img src="/stitch/screenshots/17b55cb8fa7a4d36a1e11a3d4fe79e7b.png" alt="17b55 preview"></div>
+          <div class="card-body">
+            <strong>AutoMatrix Responsive Landing Page</strong>
+            <div class="meta">17b55cb8fa7a4d36a1e11a3d4fe79e7b • DESKTOP • 2560 x 8426</div>
+            <div class="links">
+              <a href="/stitch/screens/17b55cb8fa7a4d36a1e11a3d4fe79e7b.html">HTML bruto</a>
+              <a href="/stitch/reference/desktop-full.html">Referencia curada</a>
+            </div>
+          </div>
+        </article>
+
+        <article class="card">
+          <div class="shot"><img src="/stitch/screenshots/c0cf4999eb0148018f9430961005ee8c.png" alt="c0cf preview"></div>
+          <div class="card-body">
+            <strong>AutoMatrix Landing Page Fixed</strong>
+            <div class="meta">c0cf4999eb0148018f9430961005ee8c • DESKTOP • 2560 x 4214</div>
+            <div class="links">
+              <a href="/stitch/screens/c0cf4999eb0148018f9430961005ee8c.html">HTML bruto</a>
+              <a href="/stitch/screens-resolved/c0cf4999eb0148018f9430961005ee8c.resolved.html">HTML resolvido</a>
+              <a href="/stitch/reference/desktop-fixed-resolved.html">Referencia curada</a>
+            </div>
+          </div>
+        </article>
+
+        <article class="card">
+          <div class="shot"><img src="/stitch/screenshots/681a54e0a2b74037a335d43468b643f9.png" alt="681a preview"></div>
+          <div class="card-body">
+            <strong>AutoMatrix Full Landing Page Rebuilt</strong>
+            <div class="meta">681a54e0a2b74037a335d43468b643f9 • MOBILE • 780 x 13016</div>
+            <div class="links">
+              <a href="/stitch/screens/681a54e0a2b74037a335d43468b643f9.html">HTML bruto</a>
+              <a href="/stitch/reference/mobile-full.html">Referencia curada</a>
+            </div>
+          </div>
+        </article>
+
+        <article class="card">
+          <div class="shot">Arquivadas para consulta historica</div>
+          <div class="card-body">
+            <strong>Versoes secundarias</strong>
+            <div class="meta">50dabfbf4673443e8672ed7a08e6eec0 e 83858a15a676475ea8103c4ebe2f6649 foram movidas para archive</div>
+            <div class="links">
+              <a href="/stitch/archive/screens/50dabfbf4673443e8672ed7a08e6eec0.html">Abrir 50dab</a>
+              <a href="/stitch/archive/screens/83858a15a676475ea8103c4ebe2f6649.html">Abrir 83858</a>
+            </div>
+          </div>
+        </article>
+      </div>
+    </section>
+  </div>
+</body>
+</html>

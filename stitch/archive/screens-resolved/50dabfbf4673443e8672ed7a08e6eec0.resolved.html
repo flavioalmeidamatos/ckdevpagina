@@ -1,0 +1,306 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Especialista em automação com VBA e desenvolvimento de planilhas personalizadas. Transforme seus processos manuais em sistemas eficientes.">
+    <title>Lucas Peixoto | Especialista em VBA e Planilhas Inteligentes</title>
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Outfit:wght@400;600;800&display=swap" rel="stylesheet">
+    
+    <!-- Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+    
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="glow-bg"></div>
+    <div class="glow-bg glow-bg-2"></div>
+
+    <header class="header">
+        <div class="container header-container">
+            <a href="#" class="logo">
+                <i data-lucide="terminal" class="logo-icon"></i>
+                <span>Auto<span class="text-gradient">Matrix</span></span>
+            </a>
+            <nav class="nav">
+                <a href="#servicos" class="nav-link">Serviços</a>
+                <a href="#beneficios" class="nav-link">Benefícios</a>
+                <a href="#depoimentos" class="nav-link">Depoimentos</a>
+                <a href="#contato" class="btn btn-primary btn-sm">Fale Comigo</a>
+            </nav>
+            <button class="mobile-menu-btn" aria-label="Abrir menu">
+                <i data-lucide="menu"></i>
+            </button>
+        </div>
+    </header>
+
+    <main>
+        <!-- Hero Section -->
+        <section class="hero section">
+            <div class="container hero-container">
+                <div class="hero-content">
+                    <div class="badge fade-in-up">
+                        <span class="badge-dot"></span>
+                        Disponível para novos projetos
+                    </div>
+                    <h1 class="hero-title fade-in-up" style="animation-delay: 0.1s;">
+                        Transforme horas de trabalho manual em <br>
+                        <span class="text-gradient">segundos de automação.</span>
+                    </h1>
+                    <p class="hero-subtitle fade-in-up" style="animation-delay: 0.2s;">
+                        Desenvolvimento de macros em VBA e planilhas inteligentes feitas sob medida para escalar os resultados do seu negócio. Sistemas rápidos, seguros e escaláveis.
+                    </p>
+                    <div class="hero-cta fade-in-up" style="animation-delay: 0.3s;">
+                        <a href="#contato" class="btn btn-primary btn-lg">Solicitar Orçamento Gratuito <i data-lucide="arrow-right"></i></a>
+                        <a href="#servicos" class="btn btn-outline btn-lg">Ver Soluções</a>
+                    </div>
+                    
+                    <div class="hero-stats fade-in-up" style="animation-delay: 0.4s;">
+                        <div class="stat-item">
+                            <span class="stat-number">+150</span>
+                            <span class="stat-label">Projetos Entregues</span>
+                        </div>
+                        <div class="stat-divider"></div>
+                        <div class="stat-item">
+                            <span class="stat-number">98%</span>
+                            <span class="stat-label">Clientes Satisfeitos</span>
+                        </div>
+                        <div class="stat-divider"></div>
+                        <div class="stat-item">
+                            <span class="stat-number">10k+</span>
+                            <span class="stat-label">Horas Economizadas</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="hero-visual fade-in-up" style="animation-delay: 0.2s;">
+                    <div class="glass-card visual-card">
+                        <div class="card-header">
+                            <div class="window-controls">
+                                <span></span><span></span><span></span>
+                            </div>
+                            <div class="window-title">data_processor.vba</div>
+                        </div>
+                        <div class="code-snippet">
+                            <pre><code><span class="keyword">Sub</span> <span class="method">AutomateProcess</span>()
+    <span class="keyword">Dim</span> ws <span class="keyword">As</span> Worksheet
+    <span class="keyword">Set</span> ws = ThisWorkbook.Sheets("Data")
+    
+    <span class="comment">' Processing massive datasets</span>
+    <span class="keyword">Call</span> Optimization_Engine.Run(ws)
+    
+    <span class="method">MsgBox</span> <span class="string">"Process completed in 0.5s!"</span>
+<span class="keyword">End Sub</span></code></pre>
+                        </div>
+                        <div class="floating-element excel-icon">
+                            <i data-lucide="sheet"></i>
+                        </div>
+                        <div class="floating-element chart-icon">
+                            <i data-lucide="bar-chart-2"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Serviços Section -->
+        <section id="servicos" class="services section">
+            <div class="container">
+                <div class="section-header text-center reveal">
+                    <h2 class="section-title">Soluções em <span class="text-gradient">Engenharia de Dados</span></h2>
+                    <p class="section-subtitle">Muito além de planilhas. Criação de ecossistemas robustos para sua operação rodar no piloto automático.</p>
+                </div>
+                
+                <div class="services-grid">
+                    <div class="service-card glass-card reveal hover-lift" style="transition-delay: 0.1s;">
+                        <div class="service-icon-wrapper">
+                            <i data-lucide="code" class="service-icon"></i>
+                        </div>
+                        <h3>Desenvolvimento VBA Avançado</h3>
+                        <p>Macros complexas, integração com APIs (REST/SOAP via XMLHTTP), comunicação com banco de dados (SQL Server, MySQL, Access) e criação de sistemas inteiros encapsulados no Excel.</p>
+                        <ul class="service-features">
+                            <li><i data-lucide="check-circle-2"></i> UserForms modernos</li>
+                            <li><i data-lucide="check-circle-2"></i> Web Scraping automizado</li>
+                            <li><i data-lucide="check-circle-2"></i> Scripts de alta performance (Arrays)</li>
+                        </ul>
+                    </div>
+
+                    <div class="service-card glass-card reveal hover-lift" style="transition-delay: 0.2s;">
+                        <div class="service-icon-wrapper">
+                            <i data-lucide="file-spreadsheet" class="service-icon"></i>
+                        </div>
+                        <h3>Planilhas Inteligentes & Dashboards</h3>
+                        <p>Ferramentas corporativas desenhadas com UX/UI intuitivo, tabelas dinâmicas avançadas, Power Query e fórmulas matriciais para análise de dados em tempo real.</p>
+                        <ul class="service-features">
+                            <li><i data-lucide="check-circle-2"></i> Dashboards executivos em KPI</li>
+                            <li><i data-lucide="check-circle-2"></i> Tratamento automático via Power Query</li>
+                            <li><i data-lucide="check-circle-2"></i> Formatação condicional visual e dinâmica</li>
+                        </ul>
+                    </div>
+
+                    <div class="service-card glass-card reveal hover-lift" style="transition-delay: 0.3s;">
+                        <div class="service-icon-wrapper">
+                            <i data-lucide="workflow" class="service-icon"></i>
+                        </div>
+                        <h3>Integrações e Refatoração</h3>
+                        <p>Aceleração de códigos legados lentos, integração do Excel com ferramentas Office (Outlook, Word) e auditoria de planilhas grandes e pesadas para otimização.</p>
+                        <ul class="service-features">
+                            <li><i data-lucide="check-circle-2"></i> Disparo automático de relatórios</li>
+                            <li><i data-lucide="check-circle-2"></i> Redução de tamanho e tempo de cálculo</li>
+                            <li><i data-lucide="check-circle-2"></i> Conversão de lógicas complexas</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Benefícios Section -->
+        <section id="beneficios" class="benefits section bg-subtle">
+            <div class="container benefits-container">
+                <div class="benefits-visual reveal">
+                    <div class="glass-card metrics-card">
+                        <div class="metric-row">
+                            <div class="metric-info">
+                                <h4>Tempo de Processamento</h4>
+                                <span class="metric-compare">Antes: 4 horas / Depois: 2 minutos</span>
+                            </div>
+                            <div class="metric-bar-container">
+                                <div class="metric-bar before" style="width: 100%;"></div>
+                                <div class="metric-bar after" style="width: 5%;"></div>
+                            </div>
+                        </div>
+                        <div class="metric-row mt-4">
+                            <div class="metric-info">
+                                <h4>Margem de Erro (Humano vs Máquina)</h4>
+                                <span class="metric-compare">Redução drástica de falhas operacionais</span>
+                            </div>
+                            <div class="metric-bar-container">
+                                <div class="metric-bar before" style="width: 80%;"></div>
+                                <div class="metric-bar after" style="width: 1%;"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="benefits-content reveal" style="transition-delay: 0.2s;">
+                    <h2 class="section-title">Por que investir em <span class="text-gradient">Automação?</span></h2>
+                    <p class="section-subtitle text-left">O custo da ineficiência é invisível, mas drena os lucros diários do seu negócio. Automatizar é o caminho mais rápido para o crescimento estruturado.</p>
+                    
+                    <div class="benefit-list">
+                        <div class="benefit-item">
+                            <div class="benefit-icon-wrapper"><i data-lucide="trending-up"></i></div>
+                            <div>
+                                <h4>Escalabilidade Imediata</h4>
+                                <p>Sua equipe gasta o tempo analisando os dados em vez de prepará-los copiosamente.</p>
+                            </div>
+                        </div>
+                        <div class="benefit-item">
+                            <div class="benefit-icon-wrapper"><i data-lucide="shield-check"></i></div>
+                            <div>
+                                <h4>Confiabilidade de Dados</h4>
+                                <p>Rotinas programadas executam os passos perfeitamente toda vez, eliminando o erro humano nas planilhas de gestão.</p>
+                            </div>
+                        </div>
+                        <div class="benefit-item">
+                            <div class="benefit-icon-wrapper"><i data-lucide="coins"></i></div>
+                            <div>
+                                <h4>Retorno sobre Investimento (ROI)</h4>
+                                <p>A maioria dos nossos projetos se pagam em menos de 2 meses com a economia de horas de funcionários chave.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- CTA / Contato Section -->
+        <section id="contato" class="contact section">
+            <div class="container contact-container">
+                <div class="contact-card glass-card reveal">
+                    <div class="contact-info">
+                        <h2>Pronto para <span class="text-gradient">escalar?</span></h2>
+                        <p>Me conte sobre seu fluxo de trabalho atual. Farei uma avaliação e proposta técnica sem compromisso sobre o que podemos automatizar.</p>
+                        
+                        <div class="contact-methods">
+                            <div class="contact-method">
+                                <i data-lucide="mail"></i>
+                                <span>contato@automatrix.example</span>
+                            </div>
+                            <div class="contact-method">
+                                <i data-lucide="message-square"></i>
+                                <span>(11) 99999-9999 (WhatsApp)</span>
+                            </div>
+                            <div class="contact-method">
+                                <i data-lucide="globe"></i>
+                                <span>Atendimento remoto para todo Brasil e Exterior</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <form class="contact-form" id="leadForm">
+                        <div class="form-group">
+                            <label for="name">Nome completo</label>
+                            <input type="text" id="name" required placeholder="João Silva">
+                        </div>
+                        <div class="form-group">
+                            <label for="email">E-mail corporativo</label>
+                            <input type="email" id="email" required placeholder="joao@empresa.com.br">
+                        </div>
+                        <div class="form-group">
+                            <label for="message">Desafio atual / Área da empresa</label>
+                            <textarea id="message" required rows="4" placeholder="Temos um processo do financeiro que demora horas fechando relatórios do ERP em planilhas..."></textarea>
+                        </div>
+                        <button type="submit" class="btn btn-primary btn-block">
+                            Solicitar Análise de Especialista <i data-lucide="send"></i>
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="footer">
+        <div class="container footer-container">
+            <div class="footer-brand">
+                <a href="#" class="logo">
+                    <i data-lucide="terminal" class="logo-icon"></i>
+                    <span>Auto<span class="text-gradient">Matrix</span></span>
+                </a>
+                <p>Potencializando negócios através da automação inteligente e sob medida.</p>
+            </div>
+            
+            <div class="footer-links">
+                <div class="footer-col">
+                    <h4>Soluções</h4>
+                    <a href="#">Desenvolvimento VBA</a>
+                    <a href="#">Dashboards</a>
+                    <a href="#">Consultoria em Dados</a>
+                </div>
+                <div class="footer-col">
+                    <h4>Empresa</h4>
+                    <a href="#sobre">Sobre mim</a>
+                    <a href="#depoimentos">Cases de Sucesso</a>
+                    <a href="#contato">Contato</a>
+                </div>
+                <div class="footer-col">
+                    <h4>Social</h4>
+                    <a href="#"><i data-lucide="linkedin" class="w-4 h-4 inline-block mr-2"></i> LinkedIn</a>
+                    <a href="#"><i data-lucide="github" class="w-4 h-4 inline-block mr-2"></i> GitHub</a>
+                </div>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <div class="container text-center">
+                <p>&copy; 2026 AutoMatrix. Todos os direitos reservados. Design moderno e funcional.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>

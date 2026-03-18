@@ -1,0 +1,178 @@
+{
+  "project": {
+    "id": "3842299826048739550",
+    "resource": "projects/3842299826048739550",
+    "title": "PAGINA CKDEV",
+    "visibility": "PRIVATE",
+    "deviceType": "DESKTOP",
+    "projectType": "TEXT_TO_UI_PRO",
+    "createTime": "2026-03-18T18:13:15.955550Z",
+    "updateTime": "2026-03-18T18:32:06.504115Z"
+  },
+  "screenInstances": [
+    {
+      "id": "17b55cb8fa7a4d36a1e11a3d4fe79e7b",
+      "sourceScreen": "projects/3842299826048739550/screens/17b55cb8fa7a4d36a1e11a3d4fe79e7b",
+      "x": 4517,
+      "y": 4137,
+      "width": 1280,
+      "height": 4213,
+      "type": "SCREEN"
+    },
+    {
+      "id": "17c85117-10fc-4901-b805-c9d67da107b8",
+      "sourceScreen": "projects/3842299826048739550/screens/4210498955920685772",
+      "x": 1328,
+      "y": null,
+      "width": 600,
+      "height": 900,
+      "type": "SCREEN_INSTANCE"
+    },
+    {
+      "id": "50dabfbf4673443e8672ed7a08e6eec0",
+      "sourceScreen": "projects/3842299826048739550/screens/50dabfbf4673443e8672ed7a08e6eec0",
+      "x": 1992,
+      "y": null,
+      "width": 1280,
+      "height": 1024,
+      "type": "SCREEN"
+    },
+    {
+      "id": "60f34545-44d9-4b1c-82eb-cf90a56923d3",
+      "sourceScreen": "projects/3842299826048739550/screens/4210498955920683161",
+      "x": 664,
+      "y": null,
+      "width": 600,
+      "height": 900,
+      "type": "SCREEN_INSTANCE"
+    },
+    {
+      "id": "681a54e0a2b74037a335d43468b643f9",
+      "sourceScreen": "projects/3842299826048739550/screens/681a54e0a2b74037a335d43468b643f9",
+      "x": -2611,
+      "y": 4137,
+      "width": 7065,
+      "height": 4624,
+      "type": "SCREEN"
+    },
+    {
+      "id": "83858a15a676475ea8103c4ebe2f6649",
+      "sourceScreen": "projects/3842299826048739550/screens/83858a15a676475ea8103c4ebe2f6649",
+      "x": 5861,
+      "y": 4137,
+      "width": 1280,
+      "height": 1024,
+      "type": "SCREEN"
+    },
+    {
+      "id": "c0cf4999eb0148018f9430961005ee8c",
+      "sourceScreen": "projects/3842299826048739550/screens/c0cf4999eb0148018f9430961005ee8c",
+      "x": null,
+      "y": 1280,
+      "width": 1280,
+      "height": 2107,
+      "type": "SCREEN"
+    },
+    {
+      "id": "fb0b5d26-4e07-4504-80ae-35bf0d2a5c1d",
+      "sourceScreen": "projects/3842299826048739550/screens/4210498955920684646",
+      "x": null,
+      "y": null,
+      "width": 600,
+      "height": 900,
+      "type": "SCREEN_INSTANCE"
+    }
+  ],
+  "screens": [
+    {
+      "id": "4210498955920683161",
+      "title": "index.html",
+      "name": "projects/3842299826048739550/screens/4210498955920683161",
+      "width": null,
+      "height": null,
+      "deviceType": null,
+      "mimeType": "text/html",
+      "localPath": "/index.html"
+    },
+    {
+      "id": "4210498955920684646",
+      "title": "styles.css",
+      "name": "projects/3842299826048739550/screens/4210498955920684646",
+      "width": null,
+      "height": null,
+      "deviceType": null,
+      "mimeType": "text/css",
+      "localPath": "/styles.css"
+    },
+    {
+      "id": "4210498955920685772",
+      "title": "script.js",
+      "name": "projects/3842299826048739550/screens/4210498955920685772",
+      "width": null,
+      "height": null,
+      "deviceType": null,
+      "mimeType": "text/javascript",
+      "localPath": "/script.js"
+    },
+    {
+      "id": "17b55cb8fa7a4d36a1e11a3d4fe79e7b",
+      "title": "AutoMatrix Responsive Landing Page (Desktop)",
+      "name": "projects/3842299826048739550/screens/17b55cb8fa7a4d36a1e11a3d4fe79e7b",
+      "width": 2560,
+      "height": 8426,
+      "deviceType": "DESKTOP",
+      "mimeType": "text/html",
+      "localPath": "stitch/screens/17b55cb8fa7a4d36a1e11a3d4fe79e7b.html",
+      "resolvedPath": null,
+      "screenshotPath": "stitch/screenshots/17b55cb8fa7a4d36a1e11a3d4fe79e7b.png"
+    },
+    {
+      "id": "50dabfbf4673443e8672ed7a08e6eec0",
+      "title": "AutoMatrix Landing Page Reconstructed",
+      "name": "projects/3842299826048739550/screens/50dabfbf4673443e8672ed7a08e6eec0",
+      "width": 2560,
+      "height": 2048,
+      "deviceType": "DESKTOP",
+      "mimeType": "text/html",
+      "localPath": "stitch/archive/screens/50dabfbf4673443e8672ed7a08e6eec0.html",
+      "resolvedPath": "stitch/archive/screens-resolved/50dabfbf4673443e8672ed7a08e6eec0.resolved.html",
+      "screenshotPath": "stitch/archive/screenshots/50dabfbf4673443e8672ed7a08e6eec0.png"
+    },
+    {
+      "id": "681a54e0a2b74037a335d43468b643f9",
+      "title": "AutoMatrix Full Landing Page Rebuilt",
+      "name": "projects/3842299826048739550/screens/681a54e0a2b74037a335d43468b643f9",
+      "width": 780,
+      "height": 13016,
+      "deviceType": "MOBILE",
+      "mimeType": "text/html",
+      "localPath": "stitch/screens/681a54e0a2b74037a335d43468b643f9.html",
+      "resolvedPath": null,
+      "screenshotPath": "stitch/screenshots/681a54e0a2b74037a335d43468b643f9.png"
+    },
+    {
+      "id": "83858a15a676475ea8103c4ebe2f6649",
+      "title": "AutoMatrix Responsive Landing Page (Desktop)",
+      "name": "projects/3842299826048739550/screens/83858a15a676475ea8103c4ebe2f6649",
+      "width": 1280,
+      "height": 1024,
+      "deviceType": "DESKTOP",
+      "mimeType": "text/html",
+      "localPath": "stitch/archive/screens/83858a15a676475ea8103c4ebe2f6649.html",
+      "resolvedPath": null,
+      "screenshotPath": null
+    },
+    {
+      "id": "c0cf4999eb0148018f9430961005ee8c",
+      "title": "AutoMatrix Landing Page Fixed",
+      "name": "projects/3842299826048739550/screens/c0cf4999eb0148018f9430961005ee8c",
+      "width": 2560,
+      "height": 4214,
+      "deviceType": "DESKTOP",
+      "mimeType": "text/html",
+      "localPath": "stitch/screens/c0cf4999eb0148018f9430961005ee8c.html",
+      "resolvedPath": "stitch/screens-resolved/c0cf4999eb0148018f9430961005ee8c.resolved.html",
+      "screenshotPath": "stitch/screenshots/c0cf4999eb0148018f9430961005ee8c.png"
+    }
+  ]
+}

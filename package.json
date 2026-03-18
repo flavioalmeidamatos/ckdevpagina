@@ -1,0 +1,7 @@
+{
+  "name": "pagina-ckdev-local",
+  "private": true,
+  "scripts": {
+    "start": "python3 server.py"
+  }
+}

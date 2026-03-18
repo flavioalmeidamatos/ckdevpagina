@@ -1,0 +1,1287 @@
+<!DOCTYPE html>
+
+<html lang="pt-BR"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<meta content="Especialista em automação com VBA e desenvolvimento de planilhas personalizadas. Transforme seus processos manuais em sistemas eficientes." name="description"/>
+<title>Lucas Peixoto | Especialista em VBA e Planilhas Inteligentes</title>
+<!-- Google Fonts -->
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&amp;family=Outfit:wght@400;600;800&amp;display=swap" rel="stylesheet"/>
+<!-- Icons -->
+<script src="https://unpkg.com/lucide@latest"></script>
+<!-- Custom CSS -->
+<style>
+        /* ==========================================================================
+           CSS Variables & Design Tokens (Modern Dark Mode)
+           ========================================================================== */
+           :root {
+            /* Colors */
+            --bg-dark: #0a0a0f;
+            --bg-darker: #050508;
+            --bg-subtle: #12121a;
+            --bg-card: rgba(22, 22, 30, 0.6);
+            
+            /* Accents (Neon/Electric feel) */
+            --accent-primary: #3b82f6; /* Electric Blue */
+            --accent-secondary: #8b5cf6; /* Violet */
+            --accent-tertiary: #10b981; /* Emerald/Excel Green reference */
+            
+            /* Text */
+            --text-primary: #f8fafc;
+            --text-secondary: #94a3b8;
+            --text-muted: #64748b;
+            
+            /* Gradients */
+            --gradient-primary: linear-gradient(135deg, var(--accent-primary), var(--accent-secondary));
+            --gradient-excel: linear-gradient(135deg, var(--accent-tertiary), #34d399);
+            --gradient-glow: linear-gradient(to right, rgba(59, 130, 246, 0.15), rgba(139, 92, 246, 0.15));
+            
+            /* Borders & UI Elements */
+            --border-light: rgba(255, 255, 255, 0.08);
+            --border-highlight: rgba(255, 255, 255, 0.15);
+            
+            /* Typography */
+            --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            --font-display: 'Outfit', var(--font-sans);
+            --font-code: 'JetBrains Mono', 'Fira Code', Consolas, monospace;
+            
+            /* Transitions */
+            --transition-fast: 0.15s ease;
+            --transition-normal: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            --transition-slow: 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+            
+            /* Spacing */
+            --section-spacing: 120px;
+            --container-max-width: 1200px;
+        }
+
+        /* ==========================================================================
+           Reset & Base Styles
+           ========================================================================== */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+            scroll-padding-top: 80px;
+        }
+
+        body {
+            font-family: var(--font-sans);
+            background-color: var(--bg-dark);
+            color: var(--text-primary);
+            line-height: 1.6;
+            overflow-x: hidden;
+            position: relative;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        /* Ambient Glow Backgrounds */
+        .glow-bg {
+            position: absolute;
+            width: 600px;
+            height: 600px;
+            background: radial-gradient(circle, rgba(59, 130, 246, 0.1) 0%, rgba(10, 10, 15, 0) 70%);
+            top: -200px;
+            left: -200px;
+            border-radius: 50%;
+            z-index: -1;
+            pointer-events: none;
+        }
+
+        .glow-bg-2 {
+            background: radial-gradient(circle, rgba(139, 92, 246, 0.08) 0%, rgba(10, 10, 15, 0) 70%);
+            top: 400px;
+            right: -200px;
+            left: auto;
+        }
+
+        /* ==========================================================================
+           Typography & Utilities
+           ========================================================================== */
+        h1, h2, h3, h4, h5, h6 {
+            font-family: var(--font-display);
+            line-height: 1.2;
+            color: var(--text-primary);
+        }
+
+        .text-gradient {
+            background: var(--gradient-primary);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            color: transparent;
+        }
+
+        .text-center { text-align: center; }
+        .text-left { text-align: left; }
+        .mt-4 { margin-top: 1rem; }
+
+        .container {
+            max-width: var(--container-max-width);
+            margin: 0 auto;
+            padding: 0 24px;
+        }
+
+        .section {
+            padding: var(--section-spacing) 0;
+        }
+
+        .bg-subtle {
+            background-color: var(--bg-subtle);
+            border-top: 1px solid var(--border-light);
+            border-bottom: 1px solid var(--border-light);
+        }
+
+        /* ==========================================================================
+           Components: Buttons & Badges
+           ========================================================================== */
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            font-family: var(--font-sans);
+            font-weight: 600;
+            text-decoration: none;
+            border-radius: 8px;
+            transition: var(--transition-normal);
+            cursor: pointer;
+            border: none;
+            outline: none;
+        }
+
+        .btn-sm {
+            padding: 10px 20px;
+            font-size: 0.9rem;
+        }
+
+        .btn-lg {
+            padding: 16px 32px;
+            font-size: 1.1rem;
+        }
+
+        .btn-block {
+            display: flex;
+            width: 100%;
+        }
+
+        .btn-primary {
+            background: var(--gradient-primary);
+            color: white;
+            box-shadow: 0 4px 14px rgba(59, 130, 246, 0.3);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(59, 130, 246, 0.4);
+        }
+
+        .btn-outline {
+            background: transparent;
+            color: var(--text-primary);
+            border: 1px solid var(--border-highlight);
+            backdrop-filter: blur(10px);
+        }
+
+        .btn-outline:hover {
+            background: rgba(255, 255, 255, 0.05);
+            border-color: var(--text-secondary);
+        }
+
+        /* Fix Lucide icons inside buttons */
+        .btn i, .btn svg {
+            width: 20px;
+            height: 20px;
+            transition: transform 0.2s ease;
+        }
+
+        .btn:hover i, .btn:hover svg {
+            transform: translateX(4px);
+        }
+
+        .badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 6px 16px;
+            border-radius: 100px;
+            background: rgba(59, 130, 246, 0.1);
+            border: 1px solid rgba(59, 130, 246, 0.2);
+            color: var(--accent-primary);
+            font-size: 0.875rem;
+            font-weight: 500;
+            margin-bottom: 24px;
+        }
+
+        .badge-dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background-color: var(--accent-primary);
+            box-shadow: 0 0 10px var(--accent-primary);
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0% { opacity: 1; transform: scale(1); }
+            50% { opacity: 0.5; transform: scale(1.2); }
+            100% { opacity: 1; transform: scale(1); }
+        }
+
+        /* ==========================================================================
+           Components: Glass Cards
+           ========================================================================== */
+        .glass-card {
+            background: var(--bg-card);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid var(--border-light);
+            border-radius: 16px;
+            padding: 32px;
+            box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.3);
+        }
+
+        .hover-lift {
+            transition: var(--transition-normal);
+        }
+
+        .hover-lift:hover {
+            transform: translateY(-8px);
+            border-color: var(--border-highlight);
+            box-shadow: 0 12px 40px 0 rgba(0, 0, 0, 0.4), 0 0 0 1px rgba(59, 130, 246, 0.2);
+        }
+
+        /* ==========================================================================
+           Header & Navigation
+           ========================================================================== */
+        .header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            z-index: 100;
+            transition: var(--transition-normal);
+            padding: 24px 0;
+            border-bottom: 1px solid transparent;
+        }
+
+        .header.scrolled {
+            padding: 16px 0;
+            background: rgba(10, 10, 15, 0.8);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border-bottom: 1px solid var(--border-light);
+        }
+
+        .header-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            text-decoration: none;
+            font-family: var(--font-display);
+            font-size: 1.5rem;
+            font-weight: 800;
+            color: var(--text-primary);
+        }
+
+        .logo-icon {
+            color: var(--accent-primary);
+        }
+
+        .nav {
+            display: flex;
+            align-items: center;
+            gap: 32px;
+        }
+
+        .nav-link {
+            color: var(--text-secondary);
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 0.95rem;
+            transition: var(--transition-fast);
+        }
+
+        .nav-link:hover {
+            color: var(--text-primary);
+        }
+
+        .mobile-menu-btn {
+            display: none;
+            background: transparent;
+            border: none;
+            color: var(--text-primary);
+            cursor: pointer;
+        }
+
+        /* ==========================================================================
+           Hero Section
+           ========================================================================== */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            padding-top: 120px;
+            position: relative;
+        }
+
+        .hero-container {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 64px;
+            align-items: center;
+        }
+
+        .hero-title {
+            font-size: clamp(2.5rem, 5vw, 4rem);
+            letter-spacing: -0.02em;
+            margin-bottom: 24px;
+        }
+
+        .hero-subtitle {
+            font-size: 1.125rem;
+            color: var(--text-secondary);
+            margin-bottom: 40px;
+            max-width: 500px;
+        }
+
+        .hero-cta {
+            display: flex;
+            gap: 16px;
+            margin-bottom: 64px;
+        }
+
+        .hero-stats {
+            display: flex;
+            align-items: center;
+            gap: 32px;
+            padding-top: 32px;
+            border-top: 1px solid var(--border-light);
+        }
+
+        .stat-item {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .stat-number {
+            font-family: var(--font-display);
+            font-size: 1.5rem;
+            font-weight: 800;
+            color: var(--text-primary);
+        }
+
+        .stat-label {
+            font-size: 0.875rem;
+            color: var(--text-muted);
+        }
+
+        .stat-divider {
+            width: 1px;
+            height: 40px;
+            background-color: var(--border-light);
+        }
+
+        /* Hero Visual (Code snippet card) */
+        .hero-visual {
+            position: relative;
+        }
+
+        .visual-card {
+            padding: 0;
+            overflow: hidden;
+            position: relative;
+            z-index: 2;
+        }
+
+        .card-header {
+            background: rgba(0, 0, 0, 0.4);
+            padding: 12px 20px;
+            display: flex;
+            align-items: center;
+            border-bottom: 1px solid var(--border-light);
+        }
+
+        .window-controls {
+            display: flex;
+            gap: 8px;
+        }
+
+        .window-controls span {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+        }
+
+        .window-controls span:nth-child(1) { background: #ff5f56; }
+        .window-controls span:nth-child(2) { background: #ffbd2e; }
+        .window-controls span:nth-child(3) { background: #27c93f; }
+
+        .window-title {
+            margin-left: 16px;
+            font-family: var(--font-code);
+            font-size: 0.8rem;
+            color: var(--text-muted);
+        }
+
+        .code-snippet {
+            padding: 24px;
+            background: rgba(10, 10, 15, 0.6);
+            font-family: var(--font-code);
+            font-size: 0.9rem;
+            line-height: 1.5;
+            overflow-x: auto;
+        }
+
+        .code-snippet .keyword { color: #c678dd; }
+        .code-snippet .method { color: #61afef; }
+        .code-snippet .string { color: #98c379; }
+        .code-snippet .comment { color: #5c6370; font-style: italic; }
+
+        .floating-element {
+            position: absolute;
+            width: 64px;
+            height: 64px;
+            border-radius: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+            z-index: 3;
+            animation: float 6s ease-in-out infinite;
+        }
+
+        .floating-element svg, .floating-element i {
+            width: 32px;
+            height: 32px;
+        }
+
+        .excel-icon {
+            top: -20px;
+            right: -20px;
+            color: var(--accent-tertiary);
+        }
+
+        .chart-icon {
+            bottom: -30px;
+            left: -30px;
+            color: var(--accent-secondary);
+            animation-delay: -3s;
+        }
+
+        @keyframes float {
+            0% { transform: translateY(0px) rotate(0deg); }
+            50% { transform: translateY(-20px) rotate(5deg); }
+            100% { transform: translateY(0px) rotate(0deg); }
+        }
+
+        /* ==========================================================================
+           Services Section
+           ========================================================================== */
+        .section-header {
+            max-width: 600px;
+            margin: 0 auto 64px;
+        }
+
+        .section-title {
+            font-size: clamp(2rem, 4vw, 3rem);
+            margin-bottom: 16px;
+        }
+
+        .section-subtitle {
+            color: var(--text-secondary);
+            font-size: 1.1rem;
+        }
+
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 32px;
+        }
+
+        .service-card {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .service-icon-wrapper {
+            width: 56px;
+            height: 56px;
+            border-radius: 12px;
+            background: rgba(59, 130, 246, 0.1);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 24px;
+            color: var(--accent-primary);
+        }
+
+        .service-icon-wrapper svg, .service-icon-wrapper i {
+            width: 28px;
+            height: 28px;
+        }
+
+        .service-card h3 {
+            font-size: 1.25rem;
+            margin-bottom: 16px;
+        }
+
+        .service-card p {
+            color: var(--text-secondary);
+            margin-bottom: 24px;
+            flex-grow: 1;
+        }
+
+        .service-features {
+            list-style: none;
+        }
+
+        .service-features li {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            color: var(--text-primary);
+            margin-bottom: 12px;
+            font-size: 0.95rem;
+        }
+
+        .service-features li svg, .service-features li i {
+            width: 18px;
+            height: 18px;
+            color: var(--accent-tertiary);
+        }
+
+        /* ==========================================================================
+           Benefits Section
+           ========================================================================== */
+        .benefits-container {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 64px;
+            align-items: center;
+        }
+
+        .metrics-card {
+            background: linear-gradient(135deg, rgba(22, 22, 30, 0.8), rgba(15, 15, 20, 0.8));
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .metric-info {
+            margin-bottom: 12px;
+        }
+
+        .metric-info h4 {
+            font-size: 1.1rem;
+            margin-bottom: 4px;
+        }
+
+        .metric-compare {
+            font-size: 0.85rem;
+            color: var(--text-muted);
+        }
+
+        .metric-bar-container {
+            height: 8px;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 4px;
+            overflow: hidden;
+            margin-bottom: 8px;
+            position: relative;
+        }
+
+        .metric-bar {
+            height: 100%;
+            border-radius: 4px;
+            transform-origin: left;
+        }
+
+        .metric-bar.before {
+            background: rgba(239, 68, 68, 0.6);
+        }
+
+        .metric-bar.after {
+            background: var(--gradient-excel);
+            position: absolute;
+            top: 0;
+            left: 0;
+        }
+
+        .benefit-list {
+            margin-top: 40px;
+            display: flex;
+            flex-direction: column;
+            gap: 32px;
+        }
+
+        .benefit-item {
+            display: flex;
+            gap: 20px;
+        }
+
+        .benefit-icon-wrapper {
+            flex-shrink: 0;
+            width: 48px;
+            height: 48px;
+            border-radius: 12px;
+            background: rgba(139, 92, 246, 0.1);
+            color: var(--accent-secondary);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .benefit-item h4 {
+            font-size: 1.2rem;
+            margin-bottom: 8px;
+        }
+
+        .benefit-item p {
+            color: var(--text-secondary);
+            font-size: 0.95rem;
+        }
+
+        /* ==========================================================================
+           Contact Section
+           ========================================================================== */
+        .contact-container {
+            max-width: 1000px;
+        }
+
+        .contact-card {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 48px;
+            padding: 48px;
+            background: linear-gradient(135deg, rgba(22, 22, 30, 0.8), rgba(22, 22, 30, 0.4));
+            border: 1px solid rgba(59, 130, 246, 0.2);
+        }
+
+        .contact-info h2 {
+            font-size: 2.5rem;
+            margin-bottom: 16px;
+        }
+
+        .contact-info p {
+            color: var(--text-secondary);
+            margin-bottom: 32px;
+        }
+
+        .contact-methods {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .contact-method {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            color: var(--text-primary);
+        }
+
+        .contact-method svg, .contact-method i {
+            color: var(--accent-primary);
+        }
+
+        .contact-form {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .form-group {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        label {
+            font-size: 0.9rem;
+            font-weight: 500;
+            color: var(--text-secondary);
+        }
+
+        input, textarea {
+            width: 100%;
+            padding: 14px 16px;
+            border-radius: 8px;
+            background: rgba(0, 0, 0, 0.2);
+            border: 1px solid var(--border-light);
+            color: var(--text-primary);
+            font-family: var(--font-sans);
+            transition: var(--transition-fast);
+        }
+
+        input:focus, textarea:focus {
+            outline: none;
+            border-color: var(--accent-primary);
+            box-shadow: 0 0 0 2px rgba(59, 130, 246, 0.2);
+            background: rgba(0, 0, 0, 0.4);
+        }
+
+        /* ==========================================================================
+           Footer
+           ========================================================================== */
+        .footer {
+            background-color: var(--bg-darker);
+            border-top: 1px solid var(--border-light);
+            padding-top: 64px;
+        }
+
+        .footer-container {
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr 1fr;
+            gap: 64px;
+            margin-bottom: 64px;
+        }
+
+        .footer-brand p {
+            color: var(--text-muted);
+            margin-top: 16px;
+            max-width: 300px;
+        }
+
+        .footer-col h4 {
+            font-size: 1.1rem;
+            margin-bottom: 24px;
+        }
+
+        .footer-col a {
+            display: block;
+            color: var(--text-muted);
+            text-decoration: none;
+            margin-bottom: 12px;
+            transition: var(--transition-fast);
+        }
+
+        .footer-col a:hover {
+            color: var(--accent-primary);
+        }
+
+        .footer-bottom {
+            padding: 24px 0;
+            border-top: 1px solid var(--border-light);
+            color: var(--text-muted);
+            font-size: 0.9rem;
+        }
+
+        /* ==========================================================================
+           Animations
+           ========================================================================== */
+        .fade-in-up {
+            opacity: 0;
+            transform: translateY(20px);
+            animation: fadeInUp 0.8s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+        }
+
+        @keyframes fadeInUp {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .reveal {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .reveal.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* ==========================================================================
+           Responsive Design
+           ========================================================================== */
+        @media (max-width: 1024px) {
+            .hero-title { font-size: 3rem; }
+            .hero-container, .benefits-container { gap: 32px; }
+            .contact-card { padding: 32px; gap: 32px; }
+        }
+
+        @media (max-width: 768px) {
+            .nav {
+                display: none;
+                position: absolute;
+                top: 100%;
+                left: 0;
+                width: 100%;
+                background: rgba(10, 10, 15, 0.95);
+                backdrop-filter: blur(20px);
+                flex-direction: column;
+                padding: 24px;
+                border-bottom: 1px solid var(--border-light);
+            }
+            
+            .nav.active { display: flex; }
+            .mobile-menu-btn { display: block; }
+
+            .hero-container {
+                grid-template-columns: 1fr;
+                padding-top: 40px;
+                text-align: center;
+            }
+            
+            .hero-subtitle { margin: 0 auto 32px; }
+            .hero-cta { justify-content: center; }
+            .hero-stats { justify-content: center; }
+            
+            .benefits-container { grid-template-columns: 1fr; }
+            .benefits-visual { order: 2; }
+            
+            .contact-card { grid-template-columns: 1fr; }
+            
+            .footer-container {
+                grid-template-columns: 1fr 1fr;
+                gap: 32px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .section { padding: 80px 0; }
+            .hero-cta { flex-direction: column; }
+            .hero-stats {
+                flex-direction: column;
+                gap: 16px;
+            }
+            .stat-divider {
+                width: 40px;
+                height: 1px;
+            }
+            .footer-container { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+<div class="glow-bg"></div>
+<div class="glow-bg glow-bg-2"></div>
+<header class="header">
+<div class="container header-container">
+<a class="logo" href="#">
+<i class="logo-icon" data-lucide="terminal"></i>
+<span>Auto<span class="text-gradient">Matrix</span></span>
+</a>
+<nav class="nav">
+<a class="nav-link" href="#servicos">Serviços</a>
+<a class="nav-link" href="#beneficios">Benefícios</a>
+<a class="nav-link" href="#depoimentos">Depoimentos</a>
+<a class="btn btn-primary btn-sm" href="#contato">Fale Comigo</a>
+</nav>
+<button aria-label="Abrir menu" class="mobile-menu-btn">
+<i data-lucide="menu"></i>
+</button>
+</div>
+</header>
+<main>
+<!-- Hero Section -->
+<section class="hero section">
+<div class="container hero-container">
+<div class="hero-content">
+<div class="badge fade-in-up">
+<span class="badge-dot"></span>
+                        Disponível para novos projetos
+                    </div>
+<h1 class="hero-title fade-in-up" style="animation-delay: 0.1s;">
+                        Transforme horas de trabalho manual em <br/>
+<span class="text-gradient">segundos de automação.</span>
+</h1>
+<p class="hero-subtitle fade-in-up" style="animation-delay: 0.2s;">
+                        Desenvolvimento de macros em VBA e planilhas inteligentes feitas sob medida para escalar os resultados do seu negócio. Sistemas rápidos, seguros e escaláveis.
+                    </p>
+<div class="hero-cta fade-in-up" style="animation-delay: 0.3s;">
+<a class="btn btn-primary btn-lg" href="#contato">Solicitar Orçamento Gratuito <i data-lucide="arrow-right"></i></a>
+<a class="btn btn-outline btn-lg" href="#servicos">Ver Soluções</a>
+</div>
+<div class="hero-stats fade-in-up" style="animation-delay: 0.4s;">
+<div class="stat-item">
+<span class="stat-number">+150</span>
+<span class="stat-label">Projetos Entregues</span>
+</div>
+<div class="stat-divider"></div>
+<div class="stat-item">
+<span class="stat-number">98%</span>
+<span class="stat-label">Clientes Satisfeitos</span>
+</div>
+<div class="stat-divider"></div>
+<div class="stat-item">
+<span class="stat-number">10k+</span>
+<span class="stat-label">Horas Economizadas</span>
+</div>
+</div>
+</div>
+<div class="hero-visual fade-in-up" style="animation-delay: 0.2s;">
+<div class="glass-card visual-card">
+<div class="card-header">
+<div class="window-controls">
+<span></span><span></span><span></span>
+</div>
+<div class="window-title">data_processor.vba</div>
+</div>
+<div class="code-snippet">
+<pre><code><span class="keyword">Sub</span> <span class="method">AutomateProcess</span>()
+    <span class="keyword">Dim</span> ws <span class="keyword">As</span> Worksheet
+    <span class="keyword">Set</span> ws = ThisWorkbook.Sheets("Data")
+    
+    <span class="comment">' Processing massive datasets</span>
+    <span class="keyword">Call</span> Optimization_Engine.Run(ws)
+    
+    <span class="method">MsgBox</span> <span class="string">"Process completed in 0.5s!"</span>
+<span class="keyword">End Sub</span></code></pre>
+</div>
+<div class="floating-element excel-icon">
+<i data-lucide="sheet"></i>
+</div>
+<div class="floating-element chart-icon">
+<i data-lucide="bar-chart-2"></i>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- Serviços Section -->
+<section class="services section" id="servicos">
+<div class="container">
+<div class="section-header text-center reveal">
+<h2 class="section-title">Soluções em <span class="text-gradient">Engenharia de Dados</span></h2>
+<p class="section-subtitle">Muito além de planilhas. Criação de ecossistemas robustos para sua operação rodar no piloto automático.</p>
+</div>
+<div class="services-grid">
+<div class="service-card glass-card reveal hover-lift" style="transition-delay: 0.1s;">
+<div class="service-icon-wrapper">
+<i class="service-icon" data-lucide="code"></i>
+</div>
+<h3>Desenvolvimento VBA Avançado</h3>
+<p>Macros complexas, integração com APIs (REST/SOAP via XMLHTTP), comunicação com banco de dados (SQL Server, MySQL, Access) e criação de sistemas inteiros encapsulados no Excel.</p>
+<ul class="service-features">
+<li><i data-lucide="check-circle-2"></i> UserForms modernos</li>
+<li><i data-lucide="check-circle-2"></i> Web Scraping automizado</li>
+<li><i data-lucide="check-circle-2"></i> Scripts de alta performance (Arrays)</li>
+</ul>
+</div>
+<div class="service-card glass-card reveal hover-lift" style="transition-delay: 0.2s;">
+<div class="service-icon-wrapper">
+<i class="service-icon" data-lucide="file-spreadsheet"></i>
+</div>
+<h3>Planilhas Inteligentes &amp; Dashboards</h3>
+<p>Ferramentas corporativas desenhadas com UX/UI intuitivo, tabelas dinâmicas avançadas, Power Query e fórmulas matriciais para análise de dados em tempo real.</p>
+<ul class="service-features">
+<li><i data-lucide="check-circle-2"></i> Dashboards executivos em KPI</li>
+<li><i data-lucide="check-circle-2"></i> Tratamento automático via Power Query</li>
+<li><i data-lucide="check-circle-2"></i> Formatação condicional visual e dinâmica</li>
+</ul>
+</div>
+<div class="service-card glass-card reveal hover-lift" style="transition-delay: 0.3s;">
+<div class="service-icon-wrapper">
+<i class="service-icon" data-lucide="workflow"></i>
+</div>
+<h3>Integrações e Refatoração</h3>
+<p>Aceleração de códigos legados lentos, integração do Excel com ferramentas Office (Outlook, Word) e auditoria de planilhas grandes e pesadas para otimização.</p>
+<ul class="service-features">
+<li><i data-lucide="check-circle-2"></i> Disparo automático de relatórios</li>
+<li><i data-lucide="check-circle-2"></i> Redução de tamanho e tempo de cálculo</li>
+<li><i data-lucide="check-circle-2"></i> Conversão de lógicas complexas</li>
+</ul>
+</div>
+</div>
+</div>
+</section>
+<!-- Benefícios Section -->
+<section class="benefits section bg-subtle" id="beneficios">
+<div class="container benefits-container">
+<div class="benefits-visual reveal">
+<div class="glass-card metrics-card">
+<div class="metric-row">
+<div class="metric-info">
+<h4>Tempo de Processamento</h4>
+<span class="metric-compare">Antes: 4 horas / Depois: 2 minutos</span>
+</div>
+<div class="metric-bar-container">
+<div class="metric-bar before" style="width: 100%;"></div>
+<div class="metric-bar after" style="width: 5%;"></div>
+</div>
+</div>
+<div class="metric-row mt-4">
+<div class="metric-info">
+<h4>Margem de Erro (Humano vs Máquina)</h4>
+<span class="metric-compare">Redução drástica de falhas operacionais</span>
+</div>
+<div class="metric-bar-container">
+<div class="metric-bar before" style="width: 80%;"></div>
+<div class="metric-bar after" style="width: 1%;"></div>
+</div>
+</div>
+</div>
+</div>
+<div class="benefits-content reveal" style="transition-delay: 0.2s;">
+<h2 class="section-title">Por que investir em <span class="text-gradient">Automação?</span></h2>
+<p class="section-subtitle text-left">O custo da ineficiência é invisível, mas drena os lucros diários do seu negócio. Automatizar é o caminho mais rápido para o crescimento estruturado.</p>
+<div class="benefit-list">
+<div class="benefit-item">
+<div class="benefit-icon-wrapper"><i data-lucide="trending-up"></i></div>
+<div>
+<h4>Escalabilidade Imediata</h4>
+<p>Sua equipe gasta o tempo analisando os dados em vez de prepará-los copiosamente.</p>
+</div>
+</div>
+<div class="benefit-item">
+<div class="benefit-icon-wrapper"><i data-lucide="shield-check"></i></div>
+<div>
+<h4>Confiabilidade de Dados</h4>
+<p>Rotinas programadas executam os passos perfeitamente toda vez, eliminando o erro humano nas planilhas de gestão.</p>
+</div>
+</div>
+<div class="benefit-item">
+<div class="benefit-icon-wrapper"><i data-lucide="coins"></i></div>
+<div>
+<h4>Retorno sobre Investimento (ROI)</h4>
+<p>A maioria dos nossos projetos se pagam em menos de 2 meses com a economia de horas de funcionários chave.</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- CTA / Contato Section -->
+<section class="contact section" id="contato">
+<div class="container contact-container">
+<div class="contact-card glass-card reveal">
+<div class="contact-info">
+<h2>Pronto para <span class="text-gradient">escalar?</span></h2>
+<p>Me conte sobre seu fluxo de trabalho atual. Farei uma avaliação e proposta técnica sem compromisso sobre o que podemos automatizar.</p>
+<div class="contact-methods">
+<div class="contact-method">
+<i data-lucide="mail"></i>
+<span>contato@automatrix.example</span>
+</div>
+<div class="contact-method">
+<i data-lucide="message-square"></i>
+<span>(11) 99999-9999 (WhatsApp)</span>
+</div>
+<div class="contact-method">
+<i data-lucide="globe"></i>
+<span>Atendimento remoto para todo Brasil e Exterior</span>
+</div>
+</div>
+</div>
+<form class="contact-form" id="leadForm">
+<div class="form-group">
+<label for="name">Nome completo</label>
+<input id="name" placeholder="João Silva" required="" type="text"/>
+</div>
+<div class="form-group">
+<label for="email">E-mail corporativo</label>
+<input id="email" placeholder="joao@empresa.com.br" required="" type="email"/>
+</div>
+<div class="form-group">
+<label for="message">Desafio atual / Área da empresa</label>
+<textarea id="message" placeholder="Temos um processo do financeiro que demora horas fechando relatórios do ERP em planilhas..." required="" rows="4"></textarea>
+</div>
+<button class="btn btn-primary btn-block" type="submit">
+                            Solicitar Análise de Especialista <i data-lucide="send"></i>
+</button>
+</form>
+</div>
+</div>
+</section>
+</main>
+<footer class="footer">
+<div class="container footer-container">
+<div class="footer-brand">
+<a class="logo" href="#">
+<i class="logo-icon" data-lucide="terminal"></i>
+<span>Auto<span class="text-gradient">Matrix</span></span>
+</a>
+<p>Potencializando negócios através da automação inteligente e sob medida.</p>
+</div>
+<div class="footer-links">
+<div class="footer-col">
+<h4>Soluções</h4>
+<a href="#">Desenvolvimento VBA</a>
+<a href="#">Dashboards</a>
+<a href="#">Consultoria em Dados</a>
+</div>
+<div class="footer-col">
+<h4>Empresa</h4>
+<a href="#sobre">Sobre mim</a>
+<a href="#depoimentos">Cases de Sucesso</a>
+<a href="#contato">Contato</a>
+</div>
+<div class="footer-col">
+<h4>Social</h4>
+<a href="#"><i class="w-4 h-4 inline-block mr-2" data-lucide="linkedin"></i> LinkedIn</a>
+<a href="#"><i class="w-4 h-4 inline-block mr-2" data-lucide="github"></i> GitHub</a>
+</div>
+</div>
+</div>
+<div class="footer-bottom">
+<div class="container text-center">
+<p>© 2026 AutoMatrix. Todos os direitos reservados. Design moderno e funcional.</p>
+</div>
+</div>
+</footer>
+<script>
+        document.addEventListener('DOMContentLoaded', () => {
+            // 1. Initialize Lucide Icons
+            lucide.createIcons();
+
+            // 2. Header Scroll Effect
+            const header = document.querySelector('.header');
+            
+            window.addEventListener('scroll', () => {
+                if (window.scrollY > 50) {
+                    header.classList.add('scrolled');
+                } else {
+                    header.classList.remove('scrolled');
+                }
+            });
+
+            // 3. Mobile Menu Toggle
+            const mobileMenuBtn = document.querySelector('.mobile-menu-btn');
+            const nav = document.querySelector('.nav');
+
+            mobileMenuBtn.addEventListener('click', () => {
+                nav.classList.toggle('active');
+                // Toggle icon between Menu and X
+                const icon = mobileMenuBtn.querySelector('i');
+                if (nav.classList.contains('active')) {
+                    icon.setAttribute('data-lucide', 'x');
+                } else {
+                    icon.setAttribute('data-lucide', 'menu');
+                }
+                lucide.createIcons(); // re-render icon
+            });
+
+            // Close mobile menu when a link is clicked
+            document.querySelectorAll('.nav-link').forEach(link => {
+                link.addEventListener('click', () => {
+                    nav.classList.remove('active');
+                    const icon = mobileMenuBtn.querySelector('i');
+                    icon.setAttribute('data-lucide', 'menu');
+                    lucide.createIcons();
+                });
+            });
+
+            // 4. Scroll Reveal Animations
+            // Intersection Observer to add 'active' class to elements with 'reveal' class when they come into view
+            const revealElements = document.querySelectorAll('.reveal');
+
+            const revealOptions = {
+                threshold: 0.15, // Trigger when 15% of the element is visible
+                rootMargin: "0px 0px -50px 0px" // Trigger slightly before it hits the bottom
+            };
+
+            const revealObserver = new IntersectionObserver(function(entries, observer) {
+                entries.forEach(entry => {
+                    if (!entry.isIntersecting) {
+                        return;
+                    } else {
+                        entry.target.classList.add('active');
+                        
+                        // If it's the metrics card, trigger the progress bars
+                        if (entry.target.classList.contains('benefits-visual') || entry.target.querySelector('.metric-bar')) {
+                            animateMetricBars();
+                        }
+                        
+                        // Stop observing once revealed
+                        observer.unobserve(entry.target);
+                    }
+                });
+            }, revealOptions);
+
+            revealElements.forEach(el => {
+                revealObserver.observe(el);
+            });
+
+            // 5. Simulate Metric Bars Animation
+            function animateMetricBars() {
+                // Logic can be added here if dynamic updates are needed
+            }
+
+            // 6. Smooth Scrolling for Anchor Links
+            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+                anchor.addEventListener('click', function (e) {
+                    e.preventDefault();
+                    
+                    const targetId = this.getAttribute('href');
+                    if (targetId === '#') return;
+                    
+                    const targetElement = document.querySelector(targetId);
+                    
+                    if (targetElement) {
+                        // Account for fixed header height
+                        const headerHeight = document.querySelector('.header').offsetHeight;
+                        const elementPosition = targetElement.getBoundingClientRect().top;
+                        const offsetPosition = elementPosition + window.pageYOffset - headerHeight;
+        
+                        window.scrollTo({
+                            top: offsetPosition,
+                            behavior: "smooth"
+                        });
+                    }
+                });
+            });
+
+            // 7. Form Submission Simulation
+            const form = document.getElementById('leadForm');
+            
+            if (form) {
+                form.addEventListener('submit', (e) => {
+                    e.preventDefault();
+                    
+                    // Get the button
+                    const btn = form.querySelector('button[type="submit"]');
+                    const originalText = btn.innerHTML;
+                    
+                    // Simulate loading state
+                    btn.innerHTML = 'Enviando... <i data-lucide="loader-2" class="spin"></i>';
+                    lucide.createIcons();
+                    btn.disabled = true;
+                    btn.style.opacity = '0.7';
+                    
+                    // Add a simple spin class via JS just for this instance
+                    const style = document.createElement('style');
+                    style.innerHTML = `
+                        .spin { animation: spin 2s linear infinite; }
+                        @keyframes spin { 100% { transform: rotate(360deg); } }
+                    `;
+                    document.head.appendChild(style);
+                    
+                    // Simulate API Call
+                    setTimeout(() => {
+                        // Success state
+                        btn.innerHTML = 'Recebido! Entrarei em contato <i data-lucide="check"></i>';
+                        btn.style.background = 'var(--accent-tertiary)';
+                        lucide.createIcons();
+                        
+                        setTimeout(() => {
+                            // Reset form
+                            form.reset();
+                            btn.innerHTML = originalText;
+                            btn.disabled = false;
+                            btn.style.opacity = '1';
+                            btn.style.background = '';
+                            lucide.createIcons();
+                        }, 3000);
+                    }, 1500);
+                });
+            }
+        });
+    </script>
+</body></html>
