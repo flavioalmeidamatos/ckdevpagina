@@ -2,6 +2,7 @@
   "name": "pagina-ckdev-local",
   "private": true,
   "scripts": {
+    "build": "node scripts/generate-seo.mjs",
     "start": "python -m http.server 4173"
   }
 }

@@ -13,6 +13,29 @@ Depois abra:
 - `http://localhost:4173/` para o site principal
 - `http://localhost:4173/stitch/` para o painel local com as versoes e o mapa do projeto
 
+## Publicar na Vercel
+
+O projeto esta preparado para deploy estatico na Vercel.
+
+Arquivos adicionados para isso:
+
+- `vercel.json`: ativa o build da Vercel para este projeto
+- `.vercelignore`: impede o envio de arquivos internos e da pasta `stitch`
+- `scripts/generate-seo.mjs`: gera `sitemap.xml` e `robots.txt` com a URL correta do deploy
+
+Configuracao recomendada na Vercel:
+
+1. Importar este repositorio
+2. Framework Preset: `Other`
+3. Build Command: `npm run build`
+4. Output Directory: `.`
+
+Variaveis de ambiente recomendadas:
+
+- `SITE_URL`: dominio oficial do site em producao
+
+Se `SITE_URL` nao for definida, o build tenta usar automaticamente `VERCEL_PROJECT_PRODUCTION_URL` ou `VERCEL_URL`.
+
 ## Estrutura
 
 - `index.html`: ponto de entrada da landing consolidada
@@ -31,14 +54,15 @@ Depois abra:
 ## Observacoes
 
 - A landing principal agora usa fontes e icones locais, sem dependencia de CDN.
-- O formulario principal agora envia direto pelo FormSubmit usando o endpoint configurado em `data-formsubmit-endpoint`.
+- O formulario principal envia pelo FormSubmit e monta o `_next` dinamicamente com a URL atual do site.
 - Algumas telas exportadas pelo Stitch vieram com placeholders internos; por isso deixei tambem versoes `resolved`.
+- Em deploys que nao sao de producao, o `robots.txt` passa a bloquear indexacao automaticamente.
 
 ## Encaminhamento por e-mail
 
-O botao `Solicitar diagnostico inicial` usa o FormSubmit por AJAX e encaminha o conteudo para o endpoint configurado no HTML:
+O botao `Solicitar diagnostico inicial` usa o FormSubmit e encaminha o conteudo para o endpoint configurado no HTML:
 
 - link publico: `https://formsubmit.co/el/wuwupo`
 - endpoint AJAX: `https://formsubmit.co/ajax/wuwupo`
 
-Para rodar localmente, basta `npm start`. O envio nao depende mais do backend Python.
+Para rodar localmente, basta `npm start`. O envio nao depende de backend Python.

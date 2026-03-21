@@ -1,0 +1,5 @@
+User-agent: *
+Allow: /
+Disallow: /stitch/
+
+Sitemap: https://ckdev.com.br/sitemap.xml
