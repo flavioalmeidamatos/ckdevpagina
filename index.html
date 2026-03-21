@@ -8,6 +8,7 @@
   <link rel="stylesheet" href="assets/css/site.css">
 </head>
 <body data-contact-email="https://formsubmit.co/el/wuwupo" data-formsubmit-endpoint="https://formsubmit.co/ajax/wuwupo">
+  <div class="submit-toast" id="submitToast" role="status" aria-live="polite">Enviado com sucesso.</div>
   <div class="ambient ambient-a"></div>
   <div class="ambient ambient-b"></div>
 
@@ -413,33 +414,29 @@
             </div>
           </div>
 
-          <form class="contact-form" id="leadForm" action="https://formsubmit.co/wuwupo" method="POST" target="formsubmitFrame">
+          <form class="contact-form" id="leadForm" action="https://formsubmit.co/770eccbc04facd37dd202269b151fe98" method="POST">
             <input type="hidden" name="_subject" value="Novo diagnóstico inicial CKDEV">
             <input type="hidden" name="_template" value="table">
             <input type="hidden" name="_captcha" value="false">
-            <input type="hidden" name="_next" value="http://localhost:4173/#contato">
-            <input type="hidden" name="name" id="formsubmitName">
-            <input type="hidden" name="email" id="formsubmitEmail">
-            <input type="hidden" name="message" id="formsubmitMessage">
+            <input type="hidden" name="_next" id="formNext" value="http://localhost:4173/?sent=1#topo">
             <input type="text" name="_honey" tabindex="-1" autocomplete="off" class="hp-field">
             <div class="form-group">
               <label for="name">Seu nome</label>
-              <input id="name" type="text" placeholder="Como podemos te chamar?" autocomplete="name" inputmode="text" pattern="[A-ZÀ-ÖØ-Ý ]+" required>
+              <input id="name" name="name" type="text" placeholder="Como podemos te chamar?" autocomplete="name" inputmode="text" required>
             </div>
             <div class="form-group">
               <label for="email">E-mail</label>
-              <input id="email" type="email" placeholder="voce@empresa.com" autocomplete="email" required>
+              <input id="email" name="email" type="email" placeholder="voce@empresa.com" autocomplete="email" required>
             </div>
             <div class="form-group">
               <label for="message">Onde está o gargalo hoje?</label>
-              <textarea id="message" rows="5" placeholder="Descreva o processo, o volume, onde o time perde tempo e o impacto disso na operação." required></textarea>
+              <textarea id="message" name="message" rows="5" placeholder="Descreva o processo, o volume, onde o time perde tempo e o impacto disso na operação." required></textarea>
             </div>
             <button type="submit" class="btn btn-primary btn-block">
               Solicitar diagnóstico inicial <i data-lucide="send"></i>
             </button>
             <p class="form-note" id="formNote">Seu pedido vai direto para a caixa de entrada local da CKDEV e da Resolve Planilhas.</p>
           </form>
-          <iframe name="formsubmitFrame" class="submit-frame" title="Envio oculto do formulário"></iframe>
         </div>
       </div>
     </section>

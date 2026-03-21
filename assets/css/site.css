@@ -148,6 +148,28 @@ a {
   right: -14rem;
 }
 
+.submit-toast {
+  position: fixed;
+  top: 22px;
+  left: 50%;
+  transform: translate(-50%, -12px);
+  padding: 14px 18px;
+  border-radius: 16px;
+  border: 1px solid rgba(74, 222, 128, 0.24);
+  background: rgba(9, 20, 32, 0.94);
+  color: var(--text);
+  box-shadow: var(--shadow);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 220ms ease, transform 220ms ease;
+  z-index: 80;
+}
+
+.submit-toast.is-visible {
+  opacity: 1;
+  transform: translate(-50%, 0);
+}
+
 .glass-card {
   background: var(--bg-panel);
   backdrop-filter: blur(18px);

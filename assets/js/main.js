@@ -11,14 +11,13 @@ document.addEventListener('DOMContentLoaded', () => {
   const aboutDrawerLinks = document.querySelectorAll('a[href="#sobre-nos"]');
   const form = document.getElementById('leadForm');
   const formNote = document.getElementById('formNote');
+  const formNext = document.getElementById('formNext');
   const nameInput = document.getElementById('name');
   const emailInput = document.getElementById('email');
-  const formSubmitName = document.getElementById('formsubmitName');
-  const formSubmitEmail = document.getElementById('formsubmitEmail');
-  const formSubmitMessage = document.getElementById('formsubmitMessage');
   const focusTargetLinks = document.querySelectorAll('[data-focus-target]');
   const contactSection = document.getElementById('contato');
   const contactShell = document.querySelector('.contact-shell');
+  const submitToast = document.getElementById('submitToast');
   const testimonialCarousel = document.querySelector('[data-testimonial-carousel]');
   const testimonialPrev = document.querySelector('[data-carousel-prev]');
   const testimonialNext = document.querySelector('[data-carousel-next]');
@@ -58,6 +57,32 @@ document.addEventListener('DOMContentLoaded', () => {
   };
 
   refreshIcons();
+
+  if (formNext) {
+    formNext.value = `${window.location.origin}${window.location.pathname}?sent=1#topo`;
+  }
+
+  const showSubmitToast = () => {
+    window.scrollTo({ top: 0, behavior: 'auto' });
+    if (submitToast) {
+      window.requestAnimationFrame(() => {
+        submitToast.classList.add('is-visible');
+        window.setTimeout(() => {
+          submitToast.classList.remove('is-visible');
+        }, 7000);
+      });
+    }
+  };
+
+  const currentUrl = new window.URL(window.location.href);
+  const hasSubmitSuccessFlag = currentUrl.searchParams.get('sent') === '1' || window.sessionStorage.getItem('ckdev_submit_success') === '1';
+  if (hasSubmitSuccessFlag) {
+    showSubmitToast();
+    window.sessionStorage.removeItem('ckdev_submit_success');
+    currentUrl.searchParams.delete('sent');
+    currentUrl.hash = '';
+    window.history.replaceState({}, '', `${currentUrl.pathname}${currentUrl.search}${currentUrl.hash}`);
+  }
 
   const renderBrazilMap = () => {
     if (!mapCanvas || !mapSource || !mapSource.complete) return;
@@ -192,15 +217,16 @@ document.addEventListener('DOMContentLoaded', () => {
     nameInput.addEventListener('input', () => {
       const sanitized = nameInput.value
         .toUpperCase()
-        .replace(/[^A-ZÀ-ÖØ-Ý ]+/g, '')
+        .replace(/[^\p{L} ]+/gu, '')
         .replace(/\s{2,}/g, ' ');
       if (sanitized !== nameInput.value) {
         const end = sanitized.length;
         nameInput.value = sanitized;
         nameInput.setSelectionRange(end, end);
       }
-      const isValidName = /^[A-ZÀ-ÖØ-Ý ]+$/.test(nameInput.value.trim());
-      nameInput.setCustomValidity(nameInput.value.trim() && !isValidName ? 'Use apenas letras maiúsculas e espaços.' : '');
+      const normalizedName = nameInput.value.trim();
+      const isValidName = !normalizedName || /^[\p{Lu} ]+$/u.test(normalizedName);
+      nameInput.setCustomValidity(isValidName ? '' : 'Use apenas letras maiusculas e espacos.');
     });
   }
 
@@ -270,72 +296,39 @@ document.addEventListener('DOMContentLoaded', () => {
   });
 
   if (form) {
-    form.addEventListener('submit', async (event) => {
-      event.preventDefault();
+    form.addEventListener('submit', (event) => {
       const button = form.querySelector('button[type="submit"]');
       if (!button) return;
 
       const name = form.querySelector('#name')?.value.trim() || '';
       const email = form.querySelector('#email')?.value.trim() || '';
       const message = form.querySelector('#message')?.value.trim() || '';
-      const isValidName = /^[A-ZÀ-ÖØ-Ý ]+$/.test(name);
+      const normalizedName = nameInput.value.trim();
+      const isValidName = !normalizedName || /^[\p{Lu} ]+$/u.test(normalizedName);
       const isValidEmail = emailRegex.test(email);
 
       if (nameInput) {
-        nameInput.setCustomValidity(name && !isValidName ? 'Use apenas letras maiúsculas e espaços.' : '');
+        nameInput.setCustomValidity(name && !isValidName ? 'Use apenas letras maiusculas e espacos.' : '');
       }
       if (emailInput) {
-        emailInput.setCustomValidity(email && !isValidEmail ? 'Informe um e-mail válido.' : '');
+        emailInput.setCustomValidity(email && !isValidEmail ? 'Informe um e-mail valido.' : '');
       }
 
       if (!name || !email || !message || !isValidName || !isValidEmail || !form.reportValidity()) {
+        event.preventDefault();
         if (formNote) {
           formNote.textContent = 'Revise o nome e o e-mail antes de enviar.';
         }
         return;
       }
 
-      const originalMarkup = button.innerHTML;
       button.disabled = true;
       button.innerHTML = 'Enviando diagnostico <i data-lucide="loader-2" class="spin"></i>';
       if (formNote) {
         formNote.textContent = 'Enviando sua mensagem pela rota segura do FormSubmit...';
       }
+      window.sessionStorage.setItem('ckdev_submit_success', '1');
       refreshIcons();
-
-      try {
-        if (!formSubmitName || !formSubmitEmail || !formSubmitMessage) {
-          throw new Error('missing_formsubmit_fields');
-        }
-
-        formSubmitName.value = name;
-        formSubmitEmail.value = email;
-        formSubmitMessage.value = message;
-        form.submit();
-
-        button.innerHTML = 'Diagnostico enviado <i data-lucide="check"></i>';
-        if (formNote) {
-          formNote.textContent = 'Recebemos sua mensagem e o FormSubmit encaminhou o diagnóstico.';
-        }
-        refreshIcons();
-
-        window.setTimeout(() => {
-          form.reset();
-          button.disabled = false;
-          button.innerHTML = originalMarkup;
-          if (formNote) {
-            formNote.textContent = 'Seu pedido vai direto para a caixa de entrada local da CKDEV e da Resolve Planilhas.';
-          }
-          refreshIcons();
-        }, 2200);
-      } catch (error) {
-        button.disabled = false;
-        button.innerHTML = 'Tentar novamente <i data-lucide="send"></i>';
-        if (formNote) {
-          formNote.textContent = `Nao foi possivel enviar agora. Tente novamente ou use ${contactEmail}.`;
-        }
-        refreshIcons();
-      }
     });
   }
 });
