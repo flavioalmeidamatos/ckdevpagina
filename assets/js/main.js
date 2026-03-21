@@ -18,6 +18,7 @@ document.addEventListener('DOMContentLoaded', () => {
   const contactSection = document.getElementById('contato');
   const contactShell = document.querySelector('.contact-shell');
   const submitToast = document.getElementById('submitToast');
+  const whatsappFloat = document.getElementById('whatsappFloat');
   const testimonialCarousel = document.querySelector('[data-testimonial-carousel]');
   const testimonialPrev = document.querySelector('[data-carousel-prev]');
   const testimonialNext = document.querySelector('[data-carousel-next]');
@@ -167,6 +168,32 @@ document.addEventListener('DOMContentLoaded', () => {
 
   updateHeader();
   window.addEventListener('scroll', updateHeader);
+
+  if (whatsappFloat) {
+    let ticking = false;
+    let lastTransform = '';
+
+    const animateWhatsappFloat = () => {
+      const scrollProgress = Math.min(window.scrollY / 900, 1);
+      const verticalOffset = Math.sin(window.scrollY / 180) * 12 - (scrollProgress * 28);
+      const horizontalOffset = Math.min(window.scrollY / 35, 18);
+      const transform = `translate3d(${horizontalOffset.toFixed(2)}px, ${verticalOffset.toFixed(2)}px, 0)`;
+
+      if (transform !== lastTransform) {
+        whatsappFloat.style.transform = transform;
+        lastTransform = transform;
+      }
+
+      ticking = false;
+    };
+
+    animateWhatsappFloat();
+    window.addEventListener('scroll', () => {
+      if (ticking) return;
+      ticking = true;
+      window.requestAnimationFrame(animateWhatsappFloat);
+    }, { passive: true });
+  }
 
   if (mobileMenuBtn && nav && menuIcon) {
     mobileMenuBtn.addEventListener('click', () => {
