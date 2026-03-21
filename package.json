@@ -2,6 +2,6 @@
   "name": "pagina-ckdev-local",
   "private": true,
   "scripts": {
-    "start": "python3 server.py"
+    "start": "python -m http.server 4173"
   }
 }

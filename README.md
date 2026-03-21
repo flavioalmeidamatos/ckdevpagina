@@ -20,7 +20,6 @@ Depois abra:
 - `assets/js/main.js`: interacoes da landing
 - `assets/vendor/lucide.min.js`: biblioteca de icones local
 - `assets/fonts/`: fontes locais para funcionamento sem CDN
-- `server.py`: servidor local que serve o site e recebe envios do formulario
 - `stitch/index.html`: painel local para navegar nas telas do Stitch
 - `stitch/project-map.json`: metadados do projeto, telas e posicoes
 - `stitch/reference/`: conjunto curado das exports mais uteis
@@ -32,5 +31,14 @@ Depois abra:
 ## Observacoes
 
 - A landing principal agora usa fontes e icones locais, sem dependencia de CDN.
-- O formulario principal envia via `POST /api/diagnosticos` e salva cada envio em `data/diagnosticos.jsonl`.
+- O formulario principal agora envia direto pelo FormSubmit usando o endpoint configurado em `data-formsubmit-endpoint`.
 - Algumas telas exportadas pelo Stitch vieram com placeholders internos; por isso deixei tambem versoes `resolved`.
+
+## Encaminhamento por e-mail
+
+O botao `Solicitar diagnostico inicial` usa o FormSubmit por AJAX e encaminha o conteudo para o endpoint configurado no HTML:
+
+- link publico: `https://formsubmit.co/el/wuwupo`
+- endpoint AJAX: `https://formsubmit.co/ajax/wuwupo`
+
+Para rodar localmente, basta `npm start`. O envio nao depende mais do backend Python.

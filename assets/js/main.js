@@ -6,9 +6,54 @@ document.addEventListener('DOMContentLoaded', () => {
   const nav = document.querySelector('.nav');
   const mobileMenuBtn = document.querySelector('.mobile-menu-btn');
   const menuIcon = mobileMenuBtn ? mobileMenuBtn.querySelector('i') : null;
+  const aboutDrawerSection = document.getElementById('sobre-nos');
+  const aboutDrawerClose = document.querySelector('.about-drawer-close');
+  const aboutDrawerLinks = document.querySelectorAll('a[href="#sobre-nos"]');
+  const form = document.getElementById('leadForm');
+  const formNote = document.getElementById('formNote');
+  const nameInput = document.getElementById('name');
+  const emailInput = document.getElementById('email');
+  const formSubmitName = document.getElementById('formsubmitName');
+  const formSubmitEmail = document.getElementById('formsubmitEmail');
+  const formSubmitMessage = document.getElementById('formsubmitMessage');
+  const focusTargetLinks = document.querySelectorAll('[data-focus-target]');
+  const contactSection = document.getElementById('contato');
+  const contactShell = document.querySelector('.contact-shell');
+  const testimonialCarousel = document.querySelector('[data-testimonial-carousel]');
+  const testimonialPrev = document.querySelector('[data-carousel-prev]');
+  const testimonialNext = document.querySelector('[data-carousel-next]');
+  const emailRegex = /^(?:[a-zA-Z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-zA-Z0-9!#$%&'*+/=?^_`{|}~-]+)*|"(?:[\x01-\x08\x0b\x0c\x0e-\x1f\x21\x23-\x5b\x5d-\x7f]|\\[\x01-\x09\x0b\x0c\x0e-\x7f])*")@(?:(?:[a-zA-Z0-9](?:[a-zA-Z0-9-]*[a-zA-Z0-9])?\.)+[A-Za-z]{2,63}|\[(?:(?:25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)\.){3}(?:25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)\])$/;
   const refreshIcons = () => {
     if (window.lucide) {
       window.lucide.createIcons();
+    }
+  };
+
+  const closeMobileMenu = () => {
+    if (!mobileMenuBtn || !nav || !menuIcon) return;
+    nav.classList.remove('active');
+    menuIcon.setAttribute('data-lucide', 'menu');
+    refreshIcons();
+  };
+
+  const openAboutDrawer = () => {
+    if (!aboutDrawerSection) return;
+    aboutDrawerSection.classList.add('is-open');
+    aboutDrawerSection.setAttribute('aria-hidden', 'false');
+    aboutDrawerLinks.forEach((link) => link.setAttribute('aria-expanded', 'true'));
+
+    const headerOffset = header ? header.offsetHeight + 12 : 0;
+    const top = aboutDrawerSection.getBoundingClientRect().top + window.scrollY - headerOffset;
+    window.scrollTo({ top, behavior: 'smooth' });
+  };
+
+  const closeAboutDrawer = ({ scrollToTop = false } = {}) => {
+    if (!aboutDrawerSection) return;
+    aboutDrawerSection.classList.remove('is-open');
+    aboutDrawerSection.setAttribute('aria-hidden', 'true');
+    aboutDrawerLinks.forEach((link) => link.setAttribute('aria-expanded', 'false'));
+    if (scrollToTop) {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
     }
   };
 
@@ -107,10 +152,78 @@ document.addEventListener('DOMContentLoaded', () => {
 
     nav.querySelectorAll('a').forEach((link) => {
       link.addEventListener('click', () => {
-        nav.classList.remove('active');
-        menuIcon.setAttribute('data-lucide', 'menu');
-        refreshIcons();
+        closeMobileMenu();
       });
+    });
+  }
+
+  aboutDrawerLinks.forEach((link) => {
+    link.setAttribute('aria-expanded', 'false');
+    link.addEventListener('click', (event) => {
+      event.preventDefault();
+      closeMobileMenu();
+      openAboutDrawer();
+    });
+  });
+
+  if (aboutDrawerClose) {
+    aboutDrawerClose.addEventListener('click', () => {
+      closeAboutDrawer({ scrollToTop: true });
+    });
+  }
+
+  focusTargetLinks.forEach((link) => {
+    link.addEventListener('click', (event) => {
+      const targetId = link.dataset.focusTarget;
+      const target = targetId ? document.getElementById(targetId) : null;
+      if (!target) return;
+      event.preventDefault();
+      closeAboutDrawer();
+      closeMobileMenu();
+      const scrollTarget = contactShell || contactSection || target;
+      const headerOffset = header ? header.offsetHeight + 48 : 48;
+      const top = scrollTarget.getBoundingClientRect().top + window.scrollY - headerOffset;
+      window.scrollTo({ top, behavior: 'smooth' });
+      window.setTimeout(() => target.focus({ preventScroll: true }), 420);
+    });
+  });
+
+  if (nameInput) {
+    nameInput.addEventListener('input', () => {
+      const sanitized = nameInput.value
+        .toUpperCase()
+        .replace(/[^A-ZÀ-ÖØ-Ý ]+/g, '')
+        .replace(/\s{2,}/g, ' ');
+      if (sanitized !== nameInput.value) {
+        const end = sanitized.length;
+        nameInput.value = sanitized;
+        nameInput.setSelectionRange(end, end);
+      }
+      const isValidName = /^[A-ZÀ-ÖØ-Ý ]+$/.test(nameInput.value.trim());
+      nameInput.setCustomValidity(nameInput.value.trim() && !isValidName ? 'Use apenas letras maiúsculas e espaços.' : '');
+    });
+  }
+
+  if (emailInput) {
+    const validateEmailInput = () => {
+      const value = emailInput.value.trim();
+      const isValid = !value || emailRegex.test(value);
+      emailInput.setCustomValidity(isValid ? '' : 'Informe um e-mail válido.');
+    };
+
+    emailInput.addEventListener('input', validateEmailInput);
+    emailInput.addEventListener('blur', validateEmailInput);
+  }
+
+  if (testimonialCarousel && testimonialPrev && testimonialNext) {
+    const scrollAmount = () => testimonialCarousel.clientWidth * 0.92;
+
+    testimonialPrev.addEventListener('click', () => {
+      testimonialCarousel.scrollBy({ left: -scrollAmount(), behavior: 'smooth' });
+    });
+
+    testimonialNext.addEventListener('click', () => {
+      testimonialCarousel.scrollBy({ left: scrollAmount(), behavior: 'smooth' });
     });
   }
 
@@ -134,19 +247,28 @@ document.addEventListener('DOMContentLoaded', () => {
 
   document.querySelectorAll('a[href^="#"]').forEach((anchor) => {
     anchor.addEventListener('click', (event) => {
+      if (anchor.hasAttribute('data-focus-target')) return;
       const targetId = anchor.getAttribute('href');
       if (!targetId || targetId === '#') return;
+      if (targetId === '#topo') {
+        event.preventDefault();
+        closeAboutDrawer();
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+        return;
+      }
+      if (targetId === '#sobre-nos') return;
       const target = document.querySelector(targetId);
       if (!target) return;
       event.preventDefault();
-      const headerOffset = header ? header.offsetHeight + 12 : 0;
+      closeAboutDrawer();
+      const headerOffset = targetId === '#depoimentos'
+        ? (header ? Math.max(header.offsetHeight - 28, 0) : 0)
+        : (header ? header.offsetHeight + 12 : 0);
       const top = target.getBoundingClientRect().top + window.scrollY - headerOffset;
       window.scrollTo({ top, behavior: 'smooth' });
     });
   });
 
-  const form = document.getElementById('leadForm');
-  const formNote = document.getElementById('formNote');
   if (form) {
     form.addEventListener('submit', async (event) => {
       event.preventDefault();
@@ -156,41 +278,44 @@ document.addEventListener('DOMContentLoaded', () => {
       const name = form.querySelector('#name')?.value.trim() || '';
       const email = form.querySelector('#email')?.value.trim() || '';
       const message = form.querySelector('#message')?.value.trim() || '';
+      const isValidName = /^[A-ZÀ-ÖØ-Ý ]+$/.test(name);
+      const isValidEmail = emailRegex.test(email);
+
+      if (nameInput) {
+        nameInput.setCustomValidity(name && !isValidName ? 'Use apenas letras maiúsculas e espaços.' : '');
+      }
+      if (emailInput) {
+        emailInput.setCustomValidity(email && !isValidEmail ? 'Informe um e-mail válido.' : '');
+      }
+
+      if (!name || !email || !message || !isValidName || !isValidEmail || !form.reportValidity()) {
+        if (formNote) {
+          formNote.textContent = 'Revise o nome e o e-mail antes de enviar.';
+        }
+        return;
+      }
+
       const originalMarkup = button.innerHTML;
       button.disabled = true;
       button.innerHTML = 'Enviando diagnostico <i data-lucide="loader-2" class="spin"></i>';
       if (formNote) {
-        formNote.textContent = 'Enviando sua mensagem para a CKDEV...';
+        formNote.textContent = 'Enviando sua mensagem pela rota segura do FormSubmit...';
       }
       refreshIcons();
 
       try {
-        const response = await window.fetch('/api/diagnosticos', {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json'
-          },
-          body: JSON.stringify({
-            name,
-            email,
-            message
-          })
-        });
-
-        let payload = null;
-        try {
-          payload = await response.json();
-        } catch (parseError) {
-          payload = null;
+        if (!formSubmitName || !formSubmitEmail || !formSubmitMessage) {
+          throw new Error('missing_formsubmit_fields');
         }
 
-        if (!response.ok || !payload.ok) {
-          throw new Error(payload?.error || 'request_failed');
-        }
+        formSubmitName.value = name;
+        formSubmitEmail.value = email;
+        formSubmitMessage.value = message;
+        form.submit();
 
         button.innerHTML = 'Diagnostico enviado <i data-lucide="check"></i>';
         if (formNote) {
-          formNote.textContent = `Recebemos sua mensagem. Se precisar, fale tambem por ${contactEmail}.`;
+          formNote.textContent = 'Recebemos sua mensagem e o FormSubmit encaminhou o diagnóstico.';
         }
         refreshIcons();
 
@@ -199,7 +324,7 @@ document.addEventListener('DOMContentLoaded', () => {
           button.disabled = false;
           button.innerHTML = originalMarkup;
           if (formNote) {
-            formNote.textContent = 'Seu pedido vai direto para a caixa de entrada local da CKDEV, sem abrir cliente de e-mail.';
+            formNote.textContent = 'Seu pedido vai direto para a caixa de entrada local da CKDEV e da Resolve Planilhas.';
           }
           refreshIcons();
         }, 2200);
