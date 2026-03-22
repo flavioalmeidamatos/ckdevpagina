@@ -298,32 +298,23 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   if (testimonialCarousel && testimonialPrev && testimonialNext) {
-    const getCarouselStep = () => {
-      const firstCard = testimonialCarousel.querySelector('.carousel-card');
-      if (!firstCard) return testimonialCarousel.clientWidth;
-      const step = firstCard.getBoundingClientRect().width;
-      return Math.max(step, testimonialCarousel.clientWidth * 0.82);
-    };
-
-    const scrollCarousel = (direction = 1) => {
-      const step = getCarouselStep();
-      const maxScrollLeft = testimonialCarousel.scrollWidth - testimonialCarousel.clientWidth;
-      const nextLeft = testimonialCarousel.scrollLeft + (step * direction);
-
-      if (direction > 0 && nextLeft >= maxScrollLeft - 8) {
-        testimonialCarousel.scrollTo({ left: 0, behavior: 'smooth' });
-        return;
-      }
-
-      if (direction < 0 && testimonialCarousel.scrollLeft <= 8) {
-        testimonialCarousel.scrollTo({ left: maxScrollLeft, behavior: 'smooth' });
-        return;
-      }
-
-      testimonialCarousel.scrollTo({ left: Math.max(0, Math.min(nextLeft, maxScrollLeft)), behavior: 'smooth' });
-    };
-
+    const carouselCards = Array.from(testimonialCarousel.querySelectorAll('.carousel-card'));
+    let activeIndex = 0;
     let autoRotateId = null;
+
+    const renderCarousel = () => {
+      carouselCards.forEach((card, index) => {
+        const isActive = index === activeIndex;
+        card.classList.toggle('is-active', isActive);
+        card.setAttribute('aria-hidden', isActive ? 'false' : 'true');
+      });
+    };
+
+    const goToSlide = (nextIndex) => {
+      if (!carouselCards.length) return;
+      activeIndex = (nextIndex + carouselCards.length) % carouselCards.length;
+      renderCarousel();
+    };
 
     const stopAutoRotate = () => {
       if (!autoRotateId) return;
@@ -334,25 +325,26 @@ document.addEventListener('DOMContentLoaded', () => {
     const startAutoRotate = () => {
       stopAutoRotate();
       autoRotateId = window.setInterval(() => {
-        scrollCarousel(1);
+        goToSlide(activeIndex + 1);
       }, 4800);
     };
 
     testimonialPrev.addEventListener('click', () => {
-      scrollCarousel(-1);
+      goToSlide(activeIndex - 1);
       startAutoRotate();
     });
 
     testimonialNext.addEventListener('click', () => {
-      scrollCarousel(1);
+      goToSlide(activeIndex + 1);
       startAutoRotate();
     });
 
-    testimonialCarousel.addEventListener('pointerenter', stopAutoRotate);
-    testimonialCarousel.addEventListener('pointerleave', startAutoRotate);
-    testimonialCarousel.addEventListener('focusin', stopAutoRotate);
-    testimonialCarousel.addEventListener('focusout', startAutoRotate);
+    testimonialShell?.addEventListener('pointerenter', stopAutoRotate);
+    testimonialShell?.addEventListener('pointerleave', startAutoRotate);
+    testimonialShell?.addEventListener('focusin', stopAutoRotate);
+    testimonialShell?.addEventListener('focusout', startAutoRotate);
 
+    renderCarousel();
     startAutoRotate();
   }
 
