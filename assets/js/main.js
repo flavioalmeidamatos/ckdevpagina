@@ -100,7 +100,7 @@ document.addEventListener('DOMContentLoaded', () => {
   refreshIcons();
   window.addEventListener('load', () => {
     refreshIcons();
-    const shouldSnapToHomeHero = !window.location.hash || window.location.hash === '#topo';
+    const shouldSnapToHomeHero = (!window.location.hash || window.location.hash === '#topo') && !isMobileViewport();
     if (shouldSnapToHomeHero) {
       window.requestAnimationFrame(() => {
         scrollToHomeHero('auto');
@@ -310,12 +310,16 @@ document.addEventListener('DOMContentLoaded', () => {
       ticking = false;
     };
 
-    animateWhatsappFloat();
-    window.addEventListener('scroll', () => {
-      if (ticking) return;
-      ticking = true;
-      window.requestAnimationFrame(animateWhatsappFloat);
-    }, { passive: true });
+    if (isMobileViewport()) {
+      whatsappFloat.style.transform = 'translate3d(0, 0, 0)';
+    } else {
+      animateWhatsappFloat();
+      window.addEventListener('scroll', () => {
+        if (ticking) return;
+        ticking = true;
+        window.requestAnimationFrame(animateWhatsappFloat);
+      }, { passive: true });
+    }
   }
 
   if (mobileMenuBtn && nav && menuIcon) {
