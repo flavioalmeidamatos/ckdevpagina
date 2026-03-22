@@ -860,6 +860,12 @@ a {
   overflow: hidden;
 }
 
+main > .testimonial-carousel-shell {
+  width: min(var(--container), calc(100% - 32px));
+  margin-left: auto;
+  margin-right: auto;
+}
+
 .testimonial-carousel-header {
   display: flex;
   align-items: end;
@@ -878,6 +884,7 @@ a {
   display: flex;
   gap: 10px;
   align-self: center;
+  align-items: center;
 }
 
 .carousel-arrow {

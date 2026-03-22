@@ -19,9 +19,11 @@ document.addEventListener('DOMContentLoaded', () => {
   const contactShell = document.querySelector('.contact-shell');
   const submitToast = document.getElementById('submitToast');
   const whatsappFloat = document.getElementById('whatsappFloat');
-  const testimonialCarousel = document.querySelector('[data-testimonial-carousel]');
-  const testimonialPrev = document.querySelector('[data-carousel-prev]');
-  const testimonialNext = document.querySelector('[data-carousel-next]');
+  const testimonialCarousels = Array.from(document.querySelectorAll('[data-testimonial-carousel]'));
+  const testimonialCarousel = testimonialCarousels.at(-1) || null;
+  const testimonialShell = testimonialCarousel ? testimonialCarousel.closest('.testimonial-carousel-shell') : null;
+  const testimonialPrev = testimonialShell ? testimonialShell.querySelector('[data-carousel-prev]') : null;
+  const testimonialNext = testimonialShell ? testimonialShell.querySelector('[data-carousel-next]') : null;
   const emailRegex = /^(?:[a-zA-Z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-zA-Z0-9!#$%&'*+/=?^_`{|}~-]+)*|"(?:[\x01-\x08\x0b\x0c\x0e-\x1f\x21\x23-\x5b\x5d-\x7f]|\\[\x01-\x09\x0b\x0c\x0e-\x7f])*")@(?:(?:[a-zA-Z0-9](?:[a-zA-Z0-9-]*[a-zA-Z0-9])?\.)+[A-Za-z]{2,63}|\[(?:(?:25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)\.){3}(?:25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)\])$/;
   const refreshIcons = () => {
     if (!window.lucide) return false;
@@ -296,15 +298,63 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   if (testimonialCarousel && testimonialPrev && testimonialNext) {
-    const scrollAmount = () => testimonialCarousel.clientWidth * 0.92;
+    const getCarouselStep = () => {
+      const firstCard = testimonialCarousel.querySelector('.carousel-card');
+      if (!firstCard) return testimonialCarousel.clientWidth;
+      const styles = window.getComputedStyle(testimonialCarousel);
+      const gap = Number.parseFloat(styles.columnGap || styles.gap || '0') || 0;
+      return firstCard.getBoundingClientRect().width + gap;
+    };
+
+    const scrollCarousel = (direction = 1) => {
+      const step = getCarouselStep();
+      const maxScrollLeft = testimonialCarousel.scrollWidth - testimonialCarousel.clientWidth;
+      const nextLeft = testimonialCarousel.scrollLeft + (step * direction);
+
+      if (direction > 0 && nextLeft >= maxScrollLeft - 8) {
+        testimonialCarousel.scrollTo({ left: 0, behavior: 'smooth' });
+        return;
+      }
+
+      if (direction < 0 && testimonialCarousel.scrollLeft <= 8) {
+        testimonialCarousel.scrollTo({ left: maxScrollLeft, behavior: 'smooth' });
+        return;
+      }
+
+      testimonialCarousel.scrollBy({ left: step * direction, behavior: 'smooth' });
+    };
+
+    let autoRotateId = null;
+
+    const stopAutoRotate = () => {
+      if (!autoRotateId) return;
+      window.clearInterval(autoRotateId);
+      autoRotateId = null;
+    };
+
+    const startAutoRotate = () => {
+      stopAutoRotate();
+      autoRotateId = window.setInterval(() => {
+        scrollCarousel(1);
+      }, 4800);
+    };
 
     testimonialPrev.addEventListener('click', () => {
-      testimonialCarousel.scrollBy({ left: -scrollAmount(), behavior: 'smooth' });
+      scrollCarousel(-1);
+      startAutoRotate();
     });
 
     testimonialNext.addEventListener('click', () => {
-      testimonialCarousel.scrollBy({ left: scrollAmount(), behavior: 'smooth' });
+      scrollCarousel(1);
+      startAutoRotate();
     });
+
+    testimonialCarousel.addEventListener('pointerenter', stopAutoRotate);
+    testimonialCarousel.addEventListener('pointerleave', startAutoRotate);
+    testimonialCarousel.addEventListener('focusin', stopAutoRotate);
+    testimonialCarousel.addEventListener('focusout', startAutoRotate);
+
+    startAutoRotate();
   }
 
   const revealItems = document.querySelectorAll('.reveal');
