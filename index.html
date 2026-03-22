@@ -127,7 +127,7 @@
         <span>Resolve Planilhas <span class="text-gradient">by CKDEV</span></span>
       </a>
 
-      <nav class="nav" aria-label="Principal">
+      <nav class="nav" id="primary-nav" aria-label="Principal">
         <a href="#sobre-nos" class="nav-link">Sobre Nós</a>
         <a href="#servicos" class="nav-link">Serviços</a>
         <a href="#sobre" class="nav-link">Método</a>
@@ -136,14 +136,14 @@
         <a href="#contato" class="btn btn-primary btn-sm">Quero automatizar</a>
       </nav>
 
-      <button class="mobile-menu-btn" type="button" aria-label="Abrir menu">
+      <button class="mobile-menu-btn" type="button" aria-label="Abrir menu" aria-expanded="false" aria-controls="primary-nav">
         <i data-lucide="menu"></i>
       </button>
     </div>
   </header>
 
   <main>
-    <section id="sobre-nos" class="about-drawer-section" aria-hidden="true">
+    <section id="sobre-nos" class="about-drawer-section" aria-hidden="true" inert>
       <div class="container">
         <div class="about-drawer glass-card">
           <button type="button" class="about-drawer-close" aria-label="Fechar Sobre Nós">

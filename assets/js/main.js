@@ -69,6 +69,7 @@ document.addEventListener('DOMContentLoaded', () => {
   const closeMobileMenu = () => {
     if (!mobileMenuBtn || !nav || !menuIcon) return;
     nav.classList.remove('active');
+    mobileMenuBtn.setAttribute('aria-expanded', 'false');
     menuIcon.setAttribute('data-lucide', 'menu');
     refreshIcons();
   };
@@ -77,6 +78,7 @@ document.addEventListener('DOMContentLoaded', () => {
     if (!aboutDrawerSection) return;
     aboutDrawerSection.classList.add('is-open');
     aboutDrawerSection.setAttribute('aria-hidden', 'false');
+    aboutDrawerSection.inert = false;
     aboutDrawerLinks.forEach((link) => link.setAttribute('aria-expanded', 'true'));
 
     const headerOffset = header ? header.offsetHeight + 12 : 0;
@@ -88,6 +90,7 @@ document.addEventListener('DOMContentLoaded', () => {
     if (!aboutDrawerSection) return;
     aboutDrawerSection.classList.remove('is-open');
     aboutDrawerSection.setAttribute('aria-hidden', 'true');
+    aboutDrawerSection.inert = true;
     aboutDrawerLinks.forEach((link) => link.setAttribute('aria-expanded', 'false'));
     if (scrollToTop) {
       window.scrollTo({ top: 0, behavior: 'smooth' });
@@ -318,6 +321,7 @@ document.addEventListener('DOMContentLoaded', () => {
   if (mobileMenuBtn && nav && menuIcon) {
     mobileMenuBtn.addEventListener('click', () => {
       nav.classList.toggle('active');
+      mobileMenuBtn.setAttribute('aria-expanded', String(nav.classList.contains('active')));
       menuIcon.setAttribute('data-lucide', nav.classList.contains('active') ? 'x' : 'menu');
       refreshIcons();
     });
