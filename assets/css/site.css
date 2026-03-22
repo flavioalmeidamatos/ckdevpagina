@@ -860,6 +860,10 @@ a {
   overflow: hidden;
 }
 
+#depoimentos .testimonial-carousel-shell {
+  margin-top: 20px;
+}
+
 main > .testimonial-carousel-shell {
   width: min(var(--container), calc(100% - 32px));
   margin-left: auto;
@@ -913,24 +917,34 @@ main > .testimonial-carousel-shell {
 .testimonial-carousel {
   position: relative;
   overflow: hidden;
-  min-height: 280px;
+  min-height: 320px;
 }
 
 .carousel-card {
-  display: none;
+  position: absolute;
+  inset: 0;
   width: 100%;
-  min-height: 280px;
-  padding: 24px 22px;
+  min-height: 320px;
+  padding: 28px;
   border-radius: 24px;
   border: 1px solid rgba(103, 232, 249, 0.12);
   background:
     radial-gradient(circle at top left, rgba(103, 232, 249, 0.12), transparent 32%),
     linear-gradient(180deg, rgba(19, 34, 52, 0.96), rgba(12, 24, 38, 0.94));
   box-shadow: var(--shadow);
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+  transform: translateX(32px);
+  transition: opacity 260ms ease, transform 260ms ease, visibility 260ms ease;
 }
 
 .carousel-card.is-active {
-  display: block;
+  position: relative;
+  opacity: 1;
+  visibility: visible;
+  pointer-events: auto;
+  transform: translateX(0);
 }
 
 .carousel-card p {

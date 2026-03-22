@@ -19,9 +19,23 @@ document.addEventListener('DOMContentLoaded', () => {
   const contactShell = document.querySelector('.contact-shell');
   const submitToast = document.getElementById('submitToast');
   const whatsappFloat = document.getElementById('whatsappFloat');
-  const testimonialCarousels = Array.from(document.querySelectorAll('[data-testimonial-carousel]'));
-  const testimonialCarousel = testimonialCarousels.at(-1) || null;
-  const testimonialShell = testimonialCarousel ? testimonialCarousel.closest('.testimonial-carousel-shell') : null;
+  const testimonialsSection = document.getElementById('depoimentos');
+  const testimonialsContainer = testimonialsSection ? testimonialsSection.querySelector('.container') : null;
+  const aboutDrawerCarouselShell = aboutDrawerSection ? aboutDrawerSection.querySelector('.testimonial-carousel-shell') : null;
+  const looseCarouselShell = Array.from(document.querySelectorAll('.testimonial-carousel-shell')).find((shell) => (
+    shell !== aboutDrawerCarouselShell && testimonialsSection && !testimonialsSection.contains(shell)
+  )) || null;
+
+  if (aboutDrawerCarouselShell) {
+    aboutDrawerCarouselShell.remove();
+  }
+
+  if (looseCarouselShell && testimonialsContainer) {
+    testimonialsContainer.appendChild(looseCarouselShell);
+  }
+
+  const testimonialShell = testimonialsSection ? testimonialsSection.querySelector('.testimonial-carousel-shell') : null;
+  const testimonialCarousel = testimonialShell ? testimonialShell.querySelector('[data-testimonial-carousel]') : null;
   const testimonialPrev = testimonialShell ? testimonialShell.querySelector('[data-carousel-prev]') : null;
   const testimonialNext = testimonialShell ? testimonialShell.querySelector('[data-carousel-next]') : null;
   const emailRegex = /^(?:[a-zA-Z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-zA-Z0-9!#$%&'*+/=?^_`{|}~-]+)*|"(?:[\x01-\x08\x0b\x0c\x0e-\x1f\x21\x23-\x5b\x5d-\x7f]|\\[\x01-\x09\x0b\x0c\x0e-\x7f])*")@(?:(?:[a-zA-Z0-9](?:[a-zA-Z0-9-]*[a-zA-Z0-9])?\.)+[A-Za-z]{2,63}|\[(?:(?:25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)\.){3}(?:25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)\])$/;
@@ -307,6 +321,7 @@ document.addEventListener('DOMContentLoaded', () => {
         const isActive = index === activeIndex;
         card.classList.toggle('is-active', isActive);
         card.setAttribute('aria-hidden', isActive ? 'false' : 'true');
+        card.tabIndex = isActive ? 0 : -1;
       });
     };
 
