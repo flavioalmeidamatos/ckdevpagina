@@ -503,12 +503,12 @@ a {
 
 #servicos.section {
   padding-top: 14px;
-  padding-bottom: 0;
+  padding-bottom: 12px;
 }
 
 #sobre.section {
-  margin-top: -28px;
-  padding-top: 28px;
+  margin-top: 0;
+  padding-top: 20px;
 }
 
 .metric-chip {
@@ -624,7 +624,12 @@ a {
 }
 
 #beneficios {
+  padding-top: 18px;
   padding-bottom: 28px;
+}
+
+#sobre.section + #beneficios.section {
+  margin-top: -22px;
 }
 
 #depoimentos .container {
