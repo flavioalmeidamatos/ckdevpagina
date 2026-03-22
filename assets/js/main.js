@@ -75,6 +75,27 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   };
 
+  const scrollToFocusTarget = (target) => {
+    if (!target) return;
+
+    const isMobileViewport = window.matchMedia('(max-width: 767px)').matches;
+    const headerOffset = header ? header.offsetHeight : 0;
+    const extraOffset = isMobileViewport ? 20 : 48;
+    const scrollTarget = isMobileViewport ? target : (contactShell || contactSection || target);
+    const top = scrollTarget.getBoundingClientRect().top + window.scrollY - headerOffset - extraOffset;
+
+    window.scrollTo({ top, behavior: 'smooth' });
+
+    window.setTimeout(() => {
+      target.focus({ preventScroll: true });
+
+      if (isMobileViewport) {
+        const mobileTop = target.getBoundingClientRect().top + window.scrollY - headerOffset - 20;
+        window.scrollTo({ top: mobileTop, behavior: 'smooth' });
+      }
+    }, 420);
+  };
+
   const currentUrl = new window.URL(window.location.href);
   const hasSubmitSuccessFlag = currentUrl.searchParams.get('sent') === '1' || window.sessionStorage.getItem('ckdev_submit_success') === '1';
   if (hasSubmitSuccessFlag) {
@@ -232,11 +253,7 @@ document.addEventListener('DOMContentLoaded', () => {
       event.preventDefault();
       closeAboutDrawer();
       closeMobileMenu();
-      const scrollTarget = contactShell || contactSection || target;
-      const headerOffset = header ? header.offsetHeight + 48 : 48;
-      const top = scrollTarget.getBoundingClientRect().top + window.scrollY - headerOffset;
-      window.scrollTo({ top, behavior: 'smooth' });
-      window.setTimeout(() => target.focus({ preventScroll: true }), 420);
+      scrollToFocusTarget(target);
     });
   });
 
