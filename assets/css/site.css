@@ -852,10 +852,11 @@ a {
 
 .testimonial-carousel-shell {
   margin-top: 0;
-  max-width: 1500px;
-  margin-left: auto;
-  margin-right: auto;
-  padding: 18px 18px 28px;
+  width: 100%;
+  max-width: none;
+  margin-left: 0;
+  margin-right: 0;
+  padding: 18px 28px 28px;
   overflow: hidden;
 }
 
@@ -876,14 +877,14 @@ a {
 .carousel-controls {
   display: flex;
   gap: 10px;
+  align-self: center;
 }
 
 .carousel-arrow {
   width: 3rem;
   height: 3rem;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
+  display: inline-grid;
+  place-items: center;
   padding: 0;
   line-height: 1;
   border-radius: 16px;
@@ -898,17 +899,18 @@ a {
   height: 1rem;
   display: block;
   flex: 0 0 auto;
+  margin: 0;
+  transform: none;
 }
 
 .testimonial-carousel {
-  display: grid;
-  grid-auto-flow: column;
-  grid-auto-columns: minmax(280px, calc((100% - 44px) / 3));
+  display: flex;
   gap: 22px;
   overflow-x: auto;
   scroll-snap-type: x mandatory;
   scrollbar-width: none;
   scroll-behavior: smooth;
+  padding-right: 2px;
 }
 
 .testimonial-carousel::-webkit-scrollbar {
@@ -916,6 +918,7 @@ a {
 }
 
 .carousel-card {
+  flex: 0 0 calc((100% - 44px) / 3);
   min-height: 280px;
   padding: 24px 22px;
   border-radius: 24px;
@@ -1269,7 +1272,12 @@ textarea:focus {
   }
 
   .testimonial-carousel {
-    grid-auto-columns: minmax(260px, 82%);
+    gap: 18px;
+  }
+
+  .carousel-card {
+    flex: 0 0 82%;
+    min-width: 260px;
   }
 }
 
