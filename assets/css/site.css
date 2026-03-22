@@ -852,6 +852,9 @@ a {
 
 .testimonial-carousel-shell {
   margin-top: 0;
+  max-width: 1500px;
+  margin-left: auto;
+  margin-right: auto;
   padding: 18px 18px 28px;
   overflow: hidden;
 }
