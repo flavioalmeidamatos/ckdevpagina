@@ -620,7 +620,11 @@ a {
 
 #depoimentos {
   padding-top: 44px;
-  padding-bottom: 72px;
+  padding-bottom: 24px;
+}
+
+#contato.section {
+  padding-top: 18px;
 }
 
 #beneficios {
