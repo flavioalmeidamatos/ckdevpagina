@@ -3,6 +3,7 @@ document.addEventListener('DOMContentLoaded', () => {
   const mapCanvas = document.getElementById('brazilMapCanvas');
   const mapSource = document.getElementById('brazilMapSource');
   const header = document.querySelector('.header');
+  const heroSection = document.querySelector('.hero');
   const nav = document.querySelector('.nav');
   const mobileMenuBtn = document.querySelector('.mobile-menu-btn');
   const menuIcon = mobileMenuBtn ? mobileMenuBtn.querySelector('i') : null;
@@ -48,6 +49,16 @@ document.addEventListener('DOMContentLoaded', () => {
     return true;
   };
 
+  const getHomeHeroTop = () => {
+    if (!heroSection) return 0;
+    const headerOffset = header ? header.offsetHeight - 2 : 0;
+    return Math.max(heroSection.getBoundingClientRect().top + window.scrollY - headerOffset, 0);
+  };
+
+  const scrollToHomeHero = (behavior = 'smooth') => {
+    window.scrollTo({ top: getHomeHeroTop(), behavior });
+  };
+
   const closeMobileMenu = () => {
     if (!mobileMenuBtn || !nav || !menuIcon) return;
     nav.classList.remove('active');
@@ -82,6 +93,12 @@ document.addEventListener('DOMContentLoaded', () => {
   window.setTimeout(() => refreshIcons(), 420);
   window.addEventListener('load', () => {
     refreshIcons();
+    const shouldSnapToHomeHero = !window.location.hash || window.location.hash === '#topo';
+    if (shouldSnapToHomeHero) {
+      window.requestAnimationFrame(() => {
+        scrollToHomeHero('auto');
+      });
+    }
   }, { once: true });
 
   if (formNext) {
@@ -291,7 +308,7 @@ document.addEventListener('DOMContentLoaded', () => {
       event.preventDefault();
       closeAboutDrawer();
       closeMobileMenu();
-      window.scrollTo({ top: 0, behavior: 'smooth' });
+      scrollToHomeHero('smooth');
     });
   });
 
