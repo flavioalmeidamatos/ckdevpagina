@@ -9,7 +9,8 @@ document.addEventListener('DOMContentLoaded', () => {
   const aboutDrawerSection = document.getElementById('sobre-nos');
   const aboutDrawerClose = document.querySelector('.about-drawer-close');
   const aboutDrawerLinks = document.querySelectorAll('a[href="#sobre-nos"]');
-  const topAnchorLinks = document.querySelectorAll('header a[href="#topo"], footer a[href="#topo"]');
+  const topAnchorLinks = document.querySelectorAll('header a[href="#topo"]');
+  const reloadHomeLinks = document.querySelectorAll('[data-reload-home]');
   const chromeAnchorLinks = document.querySelectorAll('header a[href^="#"], footer a[href^="#"]');
   const form = document.getElementById('leadForm');
   const formNote = document.getElementById('formNote');
@@ -291,6 +292,15 @@ document.addEventListener('DOMContentLoaded', () => {
       closeAboutDrawer();
       closeMobileMenu();
       window.scrollTo({ top: 0, behavior: 'smooth' });
+    });
+  });
+
+  reloadHomeLinks.forEach((link) => {
+    link.addEventListener('click', (event) => {
+      event.preventDefault();
+      closeAboutDrawer();
+      closeMobileMenu();
+      window.location.assign('/');
     });
   });
 
