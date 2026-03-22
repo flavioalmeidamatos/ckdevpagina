@@ -648,7 +648,13 @@ a {
 }
 
 #depoimentos .section-heading {
+  max-width: 1040px;
   margin-bottom: 6px;
+}
+
+#depoimentos .section-title {
+  font-size: clamp(1.72rem, 3.2vw, 2.6rem);
+  max-width: 34ch;
 }
 
 .section-title {
