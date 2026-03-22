@@ -121,6 +121,15 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   };
 
+  const setSubmittingState = (button, isSubmitting) => {
+    if (!button) return;
+    button.disabled = isSubmitting;
+    button.innerHTML = isSubmitting
+      ? 'Enviando diagnostico <i data-lucide="loader-2" class="spin"></i>'
+      : 'Solicitar diagnóstico inicial <i data-lucide="send"></i>';
+    refreshIcons();
+  };
+
   const scrollToFocusTarget = (target) => {
     if (!target) return;
 
@@ -521,7 +530,7 @@ document.addEventListener('DOMContentLoaded', () => {
   });
 
   if (form) {
-    form.addEventListener('submit', (event) => {
+    form.addEventListener('submit', async (event) => {
       const button = form.querySelector('button[type="submit"]');
       if (!button) return;
 
@@ -547,13 +556,41 @@ document.addEventListener('DOMContentLoaded', () => {
         return;
       }
 
-      button.disabled = true;
-      button.innerHTML = 'Enviando diagnostico <i data-lucide="loader-2" class="spin"></i>';
+      event.preventDefault();
+      setSubmittingState(button, true);
       if (formNote) {
-        formNote.textContent = 'Enviando sua mensagem pela rota segura do FormSubmit...';
+        formNote.textContent = 'Enviando sua mensagem...';
       }
-      window.sessionStorage.setItem('ckdev_submit_success', '1');
-      refreshIcons();
+
+      const endpoint = form.action.replace('https://formsubmit.co/', 'https://formsubmit.co/ajax/');
+      const formData = new FormData(form);
+
+      try {
+        const response = await window.fetch(endpoint, {
+          method: 'POST',
+          headers: {
+            Accept: 'application/json'
+          },
+          body: formData
+        });
+
+        if (!response.ok) {
+          throw new Error(`FormSubmit responded with ${response.status}`);
+        }
+
+        form.reset();
+        window.sessionStorage.setItem('ckdev_submit_success', '1');
+        showSubmitToast();
+        if (formNote) {
+          formNote.textContent = 'Seu pedido foi enviado com sucesso.';
+        }
+      } catch (error) {
+        if (formNote) {
+          formNote.textContent = 'Nao foi possivel enviar agora. Tente novamente em instantes.';
+        }
+      } finally {
+        setSubmittingState(button, false);
+      }
     });
   }
 });
