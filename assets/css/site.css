@@ -476,7 +476,7 @@ a {
 .hero-title {
   margin-top: 18px;
   max-width: 16ch;
-  font-size: clamp(1.8rem, 4vw, 3.3rem);
+  font-size: clamp(1.74rem, 3.95vw, 3.24rem);
   line-height: 1.02;
   letter-spacing: -0.045em;
 }
