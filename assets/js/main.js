@@ -316,6 +316,10 @@ document.addEventListener('DOMContentLoaded', () => {
     let activeIndex = 0;
     let autoRotateId = null;
 
+    if (carouselCards.length) {
+      carouselCards[0].classList.add('is-active');
+    }
+
     const renderCarousel = () => {
       carouselCards.forEach((card, index) => {
         const isActive = index === activeIndex;
@@ -323,6 +327,11 @@ document.addEventListener('DOMContentLoaded', () => {
         card.setAttribute('aria-hidden', isActive ? 'false' : 'true');
         card.tabIndex = isActive ? 0 : -1;
       });
+
+      const activeCard = carouselCards[activeIndex];
+      if (activeCard) {
+        testimonialCarousel.style.minHeight = `${activeCard.offsetHeight}px`;
+      }
     };
 
     const goToSlide = (nextIndex) => {
