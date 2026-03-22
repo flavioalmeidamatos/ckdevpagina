@@ -2,4 +2,4 @@ User-agent: *
 Allow: /
 Disallow: /stitch/
 
-Sitemap: https://ckdev.com.br/sitemap.xml
+Sitemap: https://resolveplanilhas.com.br/sitemap.xml
