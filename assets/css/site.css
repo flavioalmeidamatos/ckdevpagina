@@ -1379,6 +1379,10 @@ textarea:focus {
 }
 
 @media (max-width: 700px) {
+  :root {
+    --font-mono: ui-monospace, "SFMono-Regular", Consolas, monospace;
+  }
+
   .ambient {
     display: none;
   }
