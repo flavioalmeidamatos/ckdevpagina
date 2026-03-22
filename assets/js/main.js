@@ -24,9 +24,9 @@ document.addEventListener('DOMContentLoaded', () => {
   const testimonialNext = document.querySelector('[data-carousel-next]');
   const emailRegex = /^(?:[a-zA-Z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-zA-Z0-9!#$%&'*+/=?^_`{|}~-]+)*|"(?:[\x01-\x08\x0b\x0c\x0e-\x1f\x21\x23-\x5b\x5d-\x7f]|\\[\x01-\x09\x0b\x0c\x0e-\x7f])*")@(?:(?:[a-zA-Z0-9](?:[a-zA-Z0-9-]*[a-zA-Z0-9])?\.)+[A-Za-z]{2,63}|\[(?:(?:25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)\.){3}(?:25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)\])$/;
   const refreshIcons = () => {
-    if (window.lucide) {
-      window.lucide.createIcons();
-    }
+    if (!window.lucide) return false;
+    window.lucide.createIcons();
+    return true;
   };
 
   const closeMobileMenu = () => {
@@ -58,6 +58,12 @@ document.addEventListener('DOMContentLoaded', () => {
   };
 
   refreshIcons();
+  window.requestAnimationFrame(() => refreshIcons());
+  window.setTimeout(() => refreshIcons(), 120);
+  window.setTimeout(() => refreshIcons(), 420);
+  window.addEventListener('load', () => {
+    refreshIcons();
+  }, { once: true });
 
   if (formNext) {
     formNext.value = `${window.location.origin}${window.location.pathname}?sent=1#topo`;
