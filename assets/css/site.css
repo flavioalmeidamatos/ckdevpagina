@@ -1012,20 +1012,21 @@ main > .testimonial-carousel-shell {
 
 .contact-shell {
   display: grid;
-  gap: 26px;
+  gap: 20px;
   grid-template-columns: 0.95fr 1.05fr;
   scroll-margin-top: 128px;
+  padding: 24px;
 }
 
 .contact-list {
-  margin-top: 22px;
+  margin-top: 16px;
   display: grid;
-  gap: 12px;
+  gap: 10px;
 }
 
 .map-panel {
-  margin-top: 22px;
-  min-height: 320px;
+  margin-top: 16px;
+  min-height: 270px;
   border-radius: 24px;
   overflow: hidden;
   border: 1px solid var(--line);
@@ -1038,7 +1039,7 @@ main > .testimonial-carousel-shell {
 .map-stage {
   position: relative;
   width: 100%;
-  height: 320px;
+  height: 270px;
   display: grid;
   place-items: center;
   isolation: isolate;
@@ -1067,7 +1068,7 @@ main > .testimonial-carousel-shell {
 
 .map-card-canvas {
   width: 100%;
-  height: 320px;
+  height: 270px;
   display: block;
   position: relative;
   z-index: 1;
@@ -1100,7 +1101,7 @@ main > .testimonial-carousel-shell {
 
 .contact-form {
   display: grid;
-  gap: 16px;
+  gap: 12px;
 }
 
 .form-note {
@@ -1110,7 +1111,7 @@ main > .testimonial-carousel-shell {
 
 .form-group {
   display: grid;
-  gap: 8px;
+  gap: 6px;
 }
 
 label {
@@ -1124,7 +1125,21 @@ textarea {
   border: 1px solid var(--line);
   background: rgba(255,255,255,0.03);
   color: var(--text);
-  padding: 15px 16px;
+  padding: 13px 15px;
+}
+
+#contato .section-title {
+  margin-top: 8px;
+  line-height: 1.05;
+}
+
+#contato .section-subtitle {
+  margin-top: 12px;
+  max-width: 52ch;
+}
+
+#contato textarea {
+  min-height: 136px;
 }
 
 input::placeholder,
