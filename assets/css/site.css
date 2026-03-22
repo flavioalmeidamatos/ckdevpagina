@@ -1133,6 +1133,10 @@ textarea {
   line-height: 1.05;
 }
 
+#contato .section-kicker {
+  color: var(--accent);
+}
+
 #contato .section-subtitle {
   margin-top: 12px;
   max-width: 52ch;
