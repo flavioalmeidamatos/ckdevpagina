@@ -1361,6 +1361,31 @@ textarea:focus {
     width: min(calc(100% - 20px), var(--container));
   }
 
+  .hero {
+    padding-top: 30px;
+  }
+
+  .hero-subtitle {
+    font-size: 0.96rem;
+    line-height: 1.55;
+  }
+
+  .hero-metrics {
+    gap: 8px;
+  }
+
+  .metric-chip {
+    padding: 11px 14px;
+  }
+
+  .metric-chip strong {
+    font-size: 1.1rem;
+  }
+
+  .metric-chip span {
+    font-size: 0.78rem;
+  }
+
   .about-drawer {
     padding: 22px 22px 20px;
   }
@@ -1388,6 +1413,12 @@ textarea:focus {
     padding: 22px;
   }
 
+  .section-title,
+  #servicos .section-title,
+  #depoimentos .section-title {
+    font-size: clamp(1.55rem, 7vw, 2.1rem);
+  }
+
   .map-panel,
   .map-stage,
   .map-card-canvas {
@@ -1397,6 +1428,7 @@ textarea:focus {
 
   .hero-actions {
     flex-direction: column;
+    gap: 10px;
   }
 
   .btn,
