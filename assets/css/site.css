@@ -573,6 +573,7 @@ a {
 }
 
 .console-body pre {
+  margin: 0;
   font-family: var(--font-mono);
   font-size: 0.92rem;
   line-height: 1.8;
