@@ -664,6 +664,15 @@ a {
   max-width: 64ch;
 }
 
+#servicos .section-heading {
+  margin-bottom: 28px;
+}
+
+#servicos .section-subtitle {
+  margin-top: 12px;
+  max-width: 88ch;
+}
+
 .service-grid,
 .testimonial-grid,
 .benefit-grid {
