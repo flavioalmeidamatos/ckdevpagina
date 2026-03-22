@@ -130,13 +130,23 @@ document.addEventListener('DOMContentLoaded', () => {
     refreshIcons();
   };
 
+  const isMobileViewport = () => window.matchMedia('(max-width: 767px)').matches;
+
+  const scrollToContactIntro = () => {
+    const target = contactSection || contactShell;
+    if (!target) return;
+    const headerOffset = header ? header.offsetHeight : 0;
+    const top = target.getBoundingClientRect().top + window.scrollY - headerOffset;
+    window.scrollTo({ top, behavior: 'smooth' });
+  };
+
   const scrollToFocusTarget = (target) => {
     if (!target) return;
 
-    const isMobileViewport = window.matchMedia('(max-width: 767px)').matches;
+    const mobileViewport = isMobileViewport();
     const headerOffset = header ? header.offsetHeight : 0;
-    const extraOffset = isMobileViewport ? 20 : 48;
-    const scrollTarget = isMobileViewport ? target : (contactShell || contactSection || target);
+    const extraOffset = mobileViewport ? 20 : 48;
+    const scrollTarget = mobileViewport ? target : (contactShell || contactSection || target);
     const top = scrollTarget.getBoundingClientRect().top + window.scrollY - headerOffset - extraOffset;
 
     window.scrollTo({ top, behavior: 'smooth' });
@@ -144,7 +154,7 @@ document.addEventListener('DOMContentLoaded', () => {
     window.setTimeout(() => {
       target.focus({ preventScroll: true });
 
-      if (isMobileViewport) {
+      if (mobileViewport) {
         const mobileTop = target.getBoundingClientRect().top + window.scrollY - headerOffset - 20;
         window.scrollTo({ top: mobileTop, behavior: 'smooth' });
       }
@@ -346,6 +356,17 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   });
 
+  document.querySelectorAll('a[href="#contato"]:not([data-focus-target])').forEach((link) => {
+    link.addEventListener('click', (event) => {
+      if (!isMobileViewport()) return;
+      event.preventDefault();
+      event.stopImmediatePropagation();
+      closeAboutDrawer();
+      closeMobileMenu();
+      scrollToContactIntro();
+    });
+  });
+
   topAnchorLinks.forEach((link) => {
     link.addEventListener('click', (event) => {
       event.preventDefault();
@@ -383,6 +404,8 @@ document.addEventListener('DOMContentLoaded', () => {
   });
 
   if (nameInput) {
+    nameInput.setAttribute('enterkeyhint', 'next');
+
     nameInput.addEventListener('input', () => {
       const sanitized = nameInput.value
         .toUpperCase()
@@ -397,9 +420,17 @@ document.addEventListener('DOMContentLoaded', () => {
       const isValidName = !normalizedName || /^[\p{Lu} ]+$/u.test(normalizedName);
       nameInput.setCustomValidity(isValidName ? '' : 'Use apenas letras maiusculas e espacos.');
     });
+
+    nameInput.addEventListener('keydown', (event) => {
+      if (!isMobileViewport() || event.key !== 'Enter' || !emailInput) return;
+      event.preventDefault();
+      emailInput.focus();
+    });
   }
 
   if (emailInput) {
+    emailInput.setAttribute('enterkeyhint', 'next');
+
     const validateEmailInput = () => {
       const value = emailInput.value.trim();
       const isValid = !value || emailRegex.test(value);
@@ -408,6 +439,17 @@ document.addEventListener('DOMContentLoaded', () => {
 
     emailInput.addEventListener('input', validateEmailInput);
     emailInput.addEventListener('blur', validateEmailInput);
+    emailInput.addEventListener('keydown', (event) => {
+      const messageInput = document.getElementById('message');
+      if (!isMobileViewport() || event.key !== 'Enter' || !messageInput) return;
+      event.preventDefault();
+      messageInput.focus();
+    });
+  }
+
+  const messageInput = document.getElementById('message');
+  if (messageInput) {
+    messageInput.setAttribute('enterkeyhint', 'done');
   }
 
   if (testimonialCarousel && testimonialPrev && testimonialNext) {
