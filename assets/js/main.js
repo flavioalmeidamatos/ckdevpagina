@@ -321,6 +321,10 @@ document.addEventListener('DOMContentLoaded', () => {
 
     if (isMobileViewport()) {
       whatsappFloat.style.transform = 'translate3d(0, 0, 0)';
+      whatsappFloat.addEventListener('click', (event) => {
+        event.preventDefault();
+        window.location.href = whatsappFloat.href;
+      });
     } else {
       animateWhatsappFloat();
       window.addEventListener('scroll', () => {
