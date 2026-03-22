@@ -125,7 +125,7 @@ document.addEventListener('DOMContentLoaded', () => {
     if (!button) return;
     button.disabled = isSubmitting;
     button.innerHTML = isSubmitting
-      ? 'Enviando diagnostico <i data-lucide="loader-2" class="spin"></i>'
+      ? 'Enviando sua solicitacao <i data-lucide="loader-2" class="spin"></i>'
       : 'Solicitar diagnóstico inicial <i data-lucide="send"></i>';
     refreshIcons();
   };
@@ -551,7 +551,7 @@ document.addEventListener('DOMContentLoaded', () => {
       if (!name || !email || !message || !isValidName || !isValidEmail || !form.reportValidity()) {
         event.preventDefault();
         if (formNote) {
-          formNote.textContent = 'Revise o nome e o e-mail antes de enviar.';
+          formNote.textContent = 'Revise seus dados para que possamos retornar com mais agilidade.';
         }
         return;
       }
@@ -559,7 +559,7 @@ document.addEventListener('DOMContentLoaded', () => {
       event.preventDefault();
       setSubmittingState(button, true);
       if (formNote) {
-        formNote.textContent = 'Enviando sua mensagem...';
+        formNote.textContent = 'Estamos enviando sua solicitacao para analise.';
       }
 
       const endpoint = form.action.replace('https://formsubmit.co/', 'https://formsubmit.co/ajax/');
@@ -582,11 +582,11 @@ document.addEventListener('DOMContentLoaded', () => {
         window.sessionStorage.setItem('ckdev_submit_success', '1');
         showSubmitToast();
         if (formNote) {
-          formNote.textContent = 'Seu pedido foi enviado com sucesso.';
+          formNote.textContent = 'Solicitacao enviada com sucesso. Em breve retornaremos no e-mail informado.';
         }
       } catch (error) {
         if (formNote) {
-          formNote.textContent = 'Nao foi possivel enviar agora. Tente novamente em instantes.';
+          formNote.textContent = 'Nao foi possivel concluir o envio agora. Tente novamente em instantes ou fale conosco pelo e-mail ao lado.';
         }
       } finally {
         setSubmittingState(button, false);
