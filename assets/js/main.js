@@ -301,9 +301,8 @@ document.addEventListener('DOMContentLoaded', () => {
     const getCarouselStep = () => {
       const firstCard = testimonialCarousel.querySelector('.carousel-card');
       if (!firstCard) return testimonialCarousel.clientWidth;
-      const styles = window.getComputedStyle(testimonialCarousel);
-      const gap = Number.parseFloat(styles.columnGap || styles.gap || '0') || 0;
-      return firstCard.getBoundingClientRect().width + gap;
+      const step = firstCard.getBoundingClientRect().width;
+      return Math.max(step, testimonialCarousel.clientWidth * 0.82);
     };
 
     const scrollCarousel = (direction = 1) => {
@@ -321,7 +320,7 @@ document.addEventListener('DOMContentLoaded', () => {
         return;
       }
 
-      testimonialCarousel.scrollBy({ left: step * direction, behavior: 'smooth' });
+      testimonialCarousel.scrollTo({ left: Math.max(0, Math.min(nextLeft, maxScrollLeft)), behavior: 'smooth' });
     };
 
     let autoRotateId = null;
