@@ -432,6 +432,7 @@ a {
   min-height: auto;
   display: flex;
   align-items: flex-start;
+  padding-top: 18px;
   padding-bottom: 14px;
 }
 
