@@ -315,28 +315,43 @@ document.addEventListener('DOMContentLoaded', () => {
     const carouselCards = Array.from(testimonialCarousel.querySelectorAll('.carousel-card'));
     let activeIndex = 0;
     let autoRotateId = null;
-
-    if (carouselCards.length) {
-      carouselCards[0].classList.add('is-active');
-    }
+    let visibleCount = 3;
 
     const renderCarousel = () => {
-      carouselCards.forEach((card, index) => {
-        const isActive = index === activeIndex;
-        card.classList.toggle('is-active', isActive);
-        card.setAttribute('aria-hidden', isActive ? 'false' : 'true');
-        card.tabIndex = isActive ? 0 : -1;
-      });
+      visibleCount = window.matchMedia('(max-width: 560px)').matches
+        ? 1
+        : window.matchMedia('(max-width: 1080px)').matches
+          ? 2
+          : 3;
 
-      const activeCard = carouselCards[activeIndex];
-      if (activeCard) {
-        testimonialCarousel.style.minHeight = `${activeCard.offsetHeight}px`;
-      }
+      const maxIndex = Math.max(0, carouselCards.length - visibleCount);
+      activeIndex = Math.min(activeIndex, maxIndex);
+
+      const gap = Number.parseFloat(window.getComputedStyle(testimonialCarousel).gap || '0') || 0;
+      const cardWidth = carouselCards[0]?.getBoundingClientRect().width || 0;
+      const offset = (cardWidth + gap) * activeIndex;
+
+      testimonialCarousel.style.transform = `translate3d(-${offset}px, 0, 0)`;
+      testimonialCarousel.style.minHeight = `${Math.max(...carouselCards.map((card) => card.offsetHeight), 0)}px`;
+
+      carouselCards.forEach((card, index) => {
+        const isVisible = index >= activeIndex && index < activeIndex + visibleCount;
+        card.classList.toggle('is-active', isVisible);
+        card.setAttribute('aria-hidden', isVisible ? 'false' : 'true');
+        card.tabIndex = isVisible ? 0 : -1;
+      });
     };
 
     const goToSlide = (nextIndex) => {
       if (!carouselCards.length) return;
-      activeIndex = (nextIndex + carouselCards.length) % carouselCards.length;
+      const maxIndex = Math.max(0, carouselCards.length - visibleCount);
+      if (nextIndex < 0) {
+        activeIndex = maxIndex;
+      } else if (nextIndex > maxIndex) {
+        activeIndex = 0;
+      } else {
+        activeIndex = nextIndex;
+      }
       renderCarousel();
     };
 
@@ -367,6 +382,7 @@ document.addEventListener('DOMContentLoaded', () => {
     testimonialShell?.addEventListener('pointerleave', startAutoRotate);
     testimonialShell?.addEventListener('focusin', stopAutoRotate);
     testimonialShell?.addEventListener('focusout', startAutoRotate);
+    window.addEventListener('resize', renderCarousel);
 
     renderCarousel();
     startAutoRotate();

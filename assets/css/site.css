@@ -915,13 +915,18 @@ main > .testimonial-carousel-shell {
 }
 
 .testimonial-carousel {
-  overflow: hidden;
+  display: flex;
+  gap: 18px;
   min-height: 280px;
+  transition: transform 320ms ease;
+  will-change: transform;
 }
 
 .carousel-card {
-  display: none;
-  width: 100%;
+  display: flex;
+  flex: 0 0 calc((100% - 36px) / 3);
+  flex-direction: column;
+  justify-content: flex-start;
   min-height: 280px;
   padding: 24px 22px;
   border-radius: 24px;
@@ -933,7 +938,7 @@ main > .testimonial-carousel-shell {
 }
 
 .carousel-card.is-active {
-  display: block;
+  border-color: rgba(103, 232, 249, 0.2);
 }
 
 .carousel-card p {
@@ -1282,6 +1287,7 @@ textarea:focus {
   }
 
   .carousel-card {
+    flex-basis: calc((100% - 18px) / 2);
     min-height: 0;
   }
 }
@@ -1316,6 +1322,10 @@ textarea:focus {
 
   .testimonial-carousel-shell {
     padding: 22px;
+  }
+
+  .carousel-card {
+    flex-basis: 100%;
   }
 
   .about-drawer-close {
