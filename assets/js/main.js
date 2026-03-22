@@ -195,9 +195,13 @@ document.addEventListener('DOMContentLoaded', () => {
     let lastTransform = '';
 
     const animateWhatsappFloat = () => {
+      const isMobileViewport = window.matchMedia('(max-width: 820px)').matches;
       const scrollProgress = Math.min(window.scrollY / 900, 1);
-      const verticalOffset = Math.sin(window.scrollY / 180) * 12 - (scrollProgress * 28);
-      const horizontalOffset = Math.min(window.scrollY / 35, 18);
+      const verticalAmplitude = isMobileViewport ? 8 : 12;
+      const travelDistance = isMobileViewport ? 20 : 28;
+      const horizontalLimit = isMobileViewport ? 8 : 18;
+      const verticalOffset = Math.sin(window.scrollY / 180) * verticalAmplitude - (scrollProgress * travelDistance);
+      const horizontalOffset = Math.min(window.scrollY / 35, horizontalLimit);
       const transform = `translate3d(${horizontalOffset.toFixed(2)}px, ${verticalOffset.toFixed(2)}px, 0)`;
 
       if (transform !== lastTransform) {
