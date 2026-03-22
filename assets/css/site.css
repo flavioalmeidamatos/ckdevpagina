@@ -625,6 +625,7 @@ a {
 
 #contato.section {
   padding-top: 18px;
+  padding-bottom: 10px;
 }
 
 #beneficios {
@@ -1102,7 +1103,7 @@ textarea:focus {
 }
 
 .footer {
-  padding: 24px 0 0;
+  padding: 8px 0 0;
   border-top: 1px solid var(--line);
 }
 
