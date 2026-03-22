@@ -534,7 +534,7 @@ a {
   position: relative;
   padding: 0;
   overflow: visible;
-  padding-bottom: 56px;
+  padding-bottom: 44px;
 }
 
 .console-header {
@@ -568,7 +568,7 @@ a {
 }
 
 .console-body {
-  padding: 26px;
+  padding: 22px 26px 18px;
   overflow-x: auto;
 }
 

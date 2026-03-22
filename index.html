@@ -243,7 +243,6 @@
   <span class="token-comment">' consolida vendas e atualiza os indicadores</span>
   <span class="token-keyword">Dim</span> ultimaLinha <span class="token-keyword">As</span> Long
   ultimaLinha = Sheets(<span class="token-string">"Base"</span>).Cells(Rows.Count, <span class="token-string">"A"</span>).End(xlUp).Row
-
   <span class="token-keyword">Range</span>(<span class="token-string">"B2"</span>).Value = WorksheetFunction.Sum(Range(<span class="token-string">"F2:F"</span> &amp; ultimaLinha))
   <span class="token-keyword">If</span> Range(<span class="token-string">"B2"</span>).Value &gt; 0 <span class="token-keyword">Then</span> Call EnviarResumo
 <span class="token-keyword">End Sub</span></code></pre>
