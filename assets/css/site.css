@@ -534,7 +534,7 @@ a {
   position: relative;
   padding: 0;
   overflow: visible;
-  padding-bottom: 44px;
+  padding-bottom: 28px;
 }
 
 .console-header {
@@ -610,7 +610,7 @@ a {
 }
 
 .floating-b {
-  bottom: -22px;
+  bottom: -12px;
   left: 18px;
   color: var(--accent-2);
 }
