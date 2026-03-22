@@ -1225,6 +1225,12 @@ textarea:focus {
   animation: heroFade 0.7s ease forwards;
 }
 
+.hero .fade-in-up {
+  opacity: 1;
+  transform: none;
+  animation: none;
+}
+
 .reveal.active {
   opacity: 1;
   transform: translateY(0);

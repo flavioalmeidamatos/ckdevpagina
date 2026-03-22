@@ -48,6 +48,13 @@ document.addEventListener('DOMContentLoaded', () => {
     window.lucide.createIcons();
     return true;
   };
+  const scheduleIdleTask = (callback) => {
+    if ('requestIdleCallback' in window) {
+      window.requestIdleCallback(callback, { timeout: 1200 });
+      return;
+    }
+    window.setTimeout(callback, 180);
+  };
 
   const getHomeHeroTop = () => {
     if (!heroSection) return 0;
@@ -88,9 +95,6 @@ document.addEventListener('DOMContentLoaded', () => {
   };
 
   refreshIcons();
-  window.requestAnimationFrame(() => refreshIcons());
-  window.setTimeout(() => refreshIcons(), 120);
-  window.setTimeout(() => refreshIcons(), 420);
   window.addEventListener('load', () => {
     refreshIcons();
     const shouldSnapToHomeHero = !window.location.hash || window.location.hash === '#topo';
@@ -215,13 +219,43 @@ document.addEventListener('DOMContentLoaded', () => {
     context.restore();
   };
 
-  if (mapSource) {
-    if (mapSource.complete) {
-      renderBrazilMap();
+  if (mapSource && mapCanvas) {
+    let mapHasRendered = false;
+
+    const renderMapWhenReady = () => {
+      if (mapHasRendered) {
+        renderBrazilMap();
+        return;
+      }
+
+      const runRender = () => {
+        renderBrazilMap();
+        mapHasRendered = true;
+        window.addEventListener('resize', renderBrazilMap, { passive: true });
+      };
+
+      if (mapSource.complete) {
+        scheduleIdleTask(runRender);
+      } else {
+        mapSource.addEventListener('load', () => scheduleIdleTask(runRender), { once: true });
+      }
+    };
+
+    if ('IntersectionObserver' in window) {
+      const mapObserver = new IntersectionObserver((entries, currentObserver) => {
+        entries.forEach((entry) => {
+          if (!entry.isIntersecting) return;
+          renderMapWhenReady();
+          currentObserver.disconnect();
+        });
+      }, {
+        rootMargin: '220px 0px'
+      });
+
+      mapObserver.observe(mapCanvas);
     } else {
-      mapSource.addEventListener('load', renderBrazilMap, { once: true });
+      renderMapWhenReady();
     }
-    window.addEventListener('resize', renderBrazilMap);
   }
 
   const updateHeader = () => {
@@ -230,7 +264,7 @@ document.addEventListener('DOMContentLoaded', () => {
   };
 
   updateHeader();
-  window.addEventListener('scroll', updateHeader);
+  window.addEventListener('scroll', updateHeader, { passive: true });
 
   if (whatsappFloat) {
     let ticking = false;
