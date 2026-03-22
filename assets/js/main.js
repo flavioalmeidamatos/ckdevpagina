@@ -55,6 +55,13 @@ document.addEventListener('DOMContentLoaded', () => {
     }
     window.setTimeout(callback, 180);
   };
+  const scheduleNonCriticalSetup = (callback) => {
+    if (isMobileViewport()) {
+      scheduleIdleTask(callback);
+      return;
+    }
+    callback();
+  };
 
   const getHomeHeroTop = () => {
     if (!heroSection) return 0;
@@ -241,7 +248,9 @@ document.addEventListener('DOMContentLoaded', () => {
     context.restore();
   };
 
-  if (mapSource && mapCanvas) {
+  scheduleNonCriticalSetup(() => {
+    if (!(mapSource && mapCanvas)) return;
+
     let mapHasRendered = false;
 
     const renderMapWhenReady = () => {
@@ -278,7 +287,7 @@ document.addEventListener('DOMContentLoaded', () => {
     } else {
       renderMapWhenReady();
     }
-  }
+  });
 
   const updateHeader = () => {
     if (!header) return;
@@ -460,100 +469,102 @@ document.addEventListener('DOMContentLoaded', () => {
     messageInput.setAttribute('enterkeyhint', 'done');
   }
 
-  if (testimonialCarousel && testimonialPrev && testimonialNext) {
-    const carouselCards = Array.from(testimonialCarousel.querySelectorAll('.carousel-card'));
-    let activeIndex = 0;
-    let autoRotateId = null;
-    let visibleCount = 3;
+  scheduleNonCriticalSetup(() => {
+    if (testimonialCarousel && testimonialPrev && testimonialNext) {
+      const carouselCards = Array.from(testimonialCarousel.querySelectorAll('.carousel-card'));
+      let activeIndex = 0;
+      let autoRotateId = null;
+      let visibleCount = 3;
 
-    const renderCarousel = () => {
-      visibleCount = window.matchMedia('(max-width: 560px)').matches
-        ? 1
-        : window.matchMedia('(max-width: 1080px)').matches
-          ? 2
-          : 3;
+      const renderCarousel = () => {
+        visibleCount = window.matchMedia('(max-width: 560px)').matches
+          ? 1
+          : window.matchMedia('(max-width: 1080px)').matches
+            ? 2
+            : 3;
 
-      const maxIndex = Math.max(0, carouselCards.length - visibleCount);
-      activeIndex = Math.min(activeIndex, maxIndex);
+        const maxIndex = Math.max(0, carouselCards.length - visibleCount);
+        activeIndex = Math.min(activeIndex, maxIndex);
 
-      const gap = Number.parseFloat(window.getComputedStyle(testimonialCarousel).gap || '0') || 0;
-      const cardWidth = carouselCards[0]?.getBoundingClientRect().width || 0;
-      const offset = (cardWidth + gap) * activeIndex;
+        const gap = Number.parseFloat(window.getComputedStyle(testimonialCarousel).gap || '0') || 0;
+        const cardWidth = carouselCards[0]?.getBoundingClientRect().width || 0;
+        const offset = (cardWidth + gap) * activeIndex;
 
-      testimonialCarousel.style.transform = `translate3d(-${offset}px, 0, 0)`;
-      testimonialCarousel.style.minHeight = `${Math.max(...carouselCards.map((card) => card.offsetHeight), 0)}px`;
+        testimonialCarousel.style.transform = `translate3d(-${offset}px, 0, 0)`;
+        testimonialCarousel.style.minHeight = `${Math.max(...carouselCards.map((card) => card.offsetHeight), 0)}px`;
 
-      carouselCards.forEach((card, index) => {
-        const isVisible = index >= activeIndex && index < activeIndex + visibleCount;
-        card.classList.toggle('is-active', isVisible);
-        card.setAttribute('aria-hidden', isVisible ? 'false' : 'true');
-        card.tabIndex = isVisible ? 0 : -1;
+        carouselCards.forEach((card, index) => {
+          const isVisible = index >= activeIndex && index < activeIndex + visibleCount;
+          card.classList.toggle('is-active', isVisible);
+          card.setAttribute('aria-hidden', isVisible ? 'false' : 'true');
+          card.tabIndex = isVisible ? 0 : -1;
+        });
+      };
+
+      const goToSlide = (nextIndex) => {
+        if (!carouselCards.length) return;
+        const maxIndex = Math.max(0, carouselCards.length - visibleCount);
+        if (nextIndex < 0) {
+          activeIndex = maxIndex;
+        } else if (nextIndex > maxIndex) {
+          activeIndex = 0;
+        } else {
+          activeIndex = nextIndex;
+        }
+        renderCarousel();
+      };
+
+      const stopAutoRotate = () => {
+        if (!autoRotateId) return;
+        window.clearInterval(autoRotateId);
+        autoRotateId = null;
+      };
+
+      const startAutoRotate = () => {
+        stopAutoRotate();
+        autoRotateId = window.setInterval(() => {
+          goToSlide(activeIndex + 1);
+        }, 4800);
+      };
+
+      testimonialPrev.addEventListener('click', () => {
+        goToSlide(activeIndex - 1);
+        startAutoRotate();
       });
-    };
 
-    const goToSlide = (nextIndex) => {
-      if (!carouselCards.length) return;
-      const maxIndex = Math.max(0, carouselCards.length - visibleCount);
-      if (nextIndex < 0) {
-        activeIndex = maxIndex;
-      } else if (nextIndex > maxIndex) {
-        activeIndex = 0;
-      } else {
-        activeIndex = nextIndex;
-      }
-      renderCarousel();
-    };
-
-    const stopAutoRotate = () => {
-      if (!autoRotateId) return;
-      window.clearInterval(autoRotateId);
-      autoRotateId = null;
-    };
-
-    const startAutoRotate = () => {
-      stopAutoRotate();
-      autoRotateId = window.setInterval(() => {
+      testimonialNext.addEventListener('click', () => {
         goToSlide(activeIndex + 1);
-      }, 4800);
-    };
-
-    testimonialPrev.addEventListener('click', () => {
-      goToSlide(activeIndex - 1);
-      startAutoRotate();
-    });
-
-    testimonialNext.addEventListener('click', () => {
-      goToSlide(activeIndex + 1);
-      startAutoRotate();
-    });
-
-    testimonialShell?.addEventListener('pointerenter', stopAutoRotate);
-    testimonialShell?.addEventListener('pointerleave', startAutoRotate);
-    testimonialShell?.addEventListener('focusin', stopAutoRotate);
-    testimonialShell?.addEventListener('focusout', startAutoRotate);
-    window.addEventListener('resize', renderCarousel);
-
-    renderCarousel();
-    startAutoRotate();
-  }
-
-  const revealItems = document.querySelectorAll('.reveal');
-  if ('IntersectionObserver' in window) {
-    const observer = new IntersectionObserver((entries, currentObserver) => {
-      entries.forEach((entry) => {
-        if (!entry.isIntersecting) return;
-        entry.target.classList.add('active');
-        currentObserver.unobserve(entry.target);
+        startAutoRotate();
       });
-    }, {
-      threshold: 0.14,
-      rootMargin: '0px 0px -40px 0px'
-    });
 
-    revealItems.forEach((item) => observer.observe(item));
-  } else {
-    revealItems.forEach((item) => item.classList.add('active'));
-  }
+      testimonialShell?.addEventListener('pointerenter', stopAutoRotate);
+      testimonialShell?.addEventListener('pointerleave', startAutoRotate);
+      testimonialShell?.addEventListener('focusin', stopAutoRotate);
+      testimonialShell?.addEventListener('focusout', startAutoRotate);
+      window.addEventListener('resize', renderCarousel);
+
+      renderCarousel();
+      startAutoRotate();
+    }
+
+    const revealItems = document.querySelectorAll('.reveal');
+    if ('IntersectionObserver' in window) {
+      const observer = new IntersectionObserver((entries, currentObserver) => {
+        entries.forEach((entry) => {
+          if (!entry.isIntersecting) return;
+          entry.target.classList.add('active');
+          currentObserver.unobserve(entry.target);
+        });
+      }, {
+        threshold: 0.14,
+        rootMargin: '0px 0px -40px 0px'
+      });
+
+      revealItems.forEach((item) => observer.observe(item));
+    } else {
+      revealItems.forEach((item) => item.classList.add('active'));
+    }
+  });
 
   document.querySelectorAll('a[href^="#"]').forEach((anchor) => {
     anchor.addEventListener('click', (event) => {
