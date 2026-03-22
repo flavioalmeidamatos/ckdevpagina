@@ -9,6 +9,8 @@ document.addEventListener('DOMContentLoaded', () => {
   const aboutDrawerSection = document.getElementById('sobre-nos');
   const aboutDrawerClose = document.querySelector('.about-drawer-close');
   const aboutDrawerLinks = document.querySelectorAll('a[href="#sobre-nos"]');
+  const topAnchorLinks = document.querySelectorAll('header a[href="#topo"], footer a[href="#topo"]');
+  const chromeAnchorLinks = document.querySelectorAll('header a[href^="#"], footer a[href^="#"]');
   const form = document.getElementById('leadForm');
   const formNote = document.getElementById('formNote');
   const formNext = document.getElementById('formNext');
@@ -280,6 +282,33 @@ document.addEventListener('DOMContentLoaded', () => {
       closeAboutDrawer();
       closeMobileMenu();
       scrollToFocusTarget(target);
+    });
+  });
+
+  topAnchorLinks.forEach((link) => {
+    link.addEventListener('click', (event) => {
+      event.preventDefault();
+      closeAboutDrawer();
+      closeMobileMenu();
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    });
+  });
+
+  chromeAnchorLinks.forEach((link) => {
+    const href = link.getAttribute('href');
+    if (!href || href === '#topo' || href === '#sobre-nos') return;
+
+    link.addEventListener('click', (event) => {
+      const target = document.querySelector(href);
+      if (!target) return;
+
+      event.preventDefault();
+      closeAboutDrawer();
+      closeMobileMenu();
+
+      const headerOffset = header ? header.offsetHeight + 12 : 12;
+      const top = target.getBoundingClientRect().top + window.scrollY - headerOffset;
+      window.scrollTo({ top, behavior: 'smooth' });
     });
   });
 
