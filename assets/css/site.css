@@ -709,6 +709,285 @@ a {
   max-width: 88ch;
 }
 
+.vba-section {
+  padding-top: 0;
+}
+
+.vba-hero,
+.vba-proof-visual,
+.vba-result-card {
+  overflow: hidden;
+}
+
+.vba-hero {
+  display: grid;
+  gap: 28px;
+  grid-template-columns: minmax(0, 1.1fr) minmax(300px, 0.9fr);
+  align-items: center;
+  padding: 34px;
+  background:
+    radial-gradient(circle at top right, rgba(245, 158, 11, 0.16), transparent 34%),
+    linear-gradient(160deg, rgba(103, 232, 249, 0.08), rgba(255, 255, 255, 0.02));
+}
+
+.vba-hero-copy .section-title {
+  max-width: 12ch;
+}
+
+.vba-hero-copy .section-subtitle {
+  max-width: 56ch;
+}
+
+.vba-hero-actions {
+  margin-top: 24px;
+}
+
+.vba-visual {
+  min-height: 320px;
+  display: flex;
+  align-items: stretch;
+}
+
+.vba-dashboard-card,
+.vba-proof-screen {
+  width: 100%;
+  border-radius: 28px;
+  border: 1px solid var(--line);
+  background:
+    linear-gradient(180deg, rgba(11, 16, 30, 0.96), rgba(15, 23, 42, 0.92)),
+    rgba(255, 255, 255, 0.02);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.04);
+}
+
+.vba-dashboard-card {
+  padding: 24px;
+  display: grid;
+  gap: 22px;
+}
+
+.vba-dashboard-top,
+.vba-proof-screen-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  color: var(--text);
+  font-weight: 600;
+}
+
+.vba-dashboard-top svg,
+.vba-proof-screen-head svg {
+  width: 20px;
+  height: 20px;
+  color: var(--accent);
+}
+
+.vba-bars {
+  min-height: 170px;
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  align-items: end;
+  gap: 14px;
+}
+
+.vba-bars span {
+  border-radius: 20px 20px 12px 12px;
+  background: linear-gradient(180deg, rgba(103, 232, 249, 0.92), rgba(14, 165, 233, 0.18));
+  border: 1px solid rgba(103, 232, 249, 0.18);
+  min-height: 72px;
+}
+
+.vba-dashboard-metrics,
+.vba-results-grid,
+.vba-card-grid {
+  display: grid;
+  gap: 20px;
+}
+
+.vba-dashboard-metrics {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+.vba-dashboard-metrics article,
+.vba-result-card {
+  border-radius: 22px;
+  border: 1px solid var(--line);
+  background: rgba(255, 255, 255, 0.03);
+}
+
+.vba-dashboard-metrics article {
+  padding: 18px;
+}
+
+.vba-dashboard-metrics strong,
+.vba-result-card strong {
+  display: block;
+  font-size: clamp(2.1rem, 5vw, 3.4rem);
+  line-height: 0.95;
+  color: var(--text);
+  letter-spacing: -0.04em;
+}
+
+.vba-dashboard-metrics span,
+.vba-result-card span {
+  display: block;
+  margin-top: 8px;
+  color: var(--muted);
+  font-size: 0.86rem;
+  text-transform: uppercase;
+  letter-spacing: 0.14em;
+}
+
+.vba-stack,
+.vba-solution-shell,
+.vba-proof-grid,
+.vba-expand-shell,
+.vba-results {
+  margin-top: 30px;
+}
+
+.vba-subtitle {
+  margin-top: 10px;
+  font-size: clamp(1.65rem, 3vw, 2.35rem);
+  line-height: 1.08;
+  letter-spacing: -0.03em;
+  color: var(--text);
+}
+
+.vba-card-grid {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+
+.vba-info-card {
+  padding: 28px;
+}
+
+.vba-info-card h3,
+.vba-solution-card h3,
+.vba-result-card h3 {
+  font-size: 1.2rem;
+}
+
+.vba-info-card p,
+.vba-solution-card p,
+.vba-result-card p {
+  margin-top: 12px;
+  color: var(--muted);
+}
+
+.vba-info-icon {
+  width: 52px;
+  height: 52px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 16px;
+  margin-bottom: 18px;
+  color: var(--accent);
+  background: rgba(103, 232, 249, 0.09);
+  border: 1px solid rgba(103, 232, 249, 0.15);
+}
+
+.vba-info-icon svg {
+  width: 22px;
+  height: 22px;
+}
+
+.vba-solution-shell,
+.vba-proof-grid {
+  display: grid;
+  gap: 24px;
+  grid-template-columns: minmax(0, 0.92fr) minmax(0, 1.08fr);
+  align-items: start;
+}
+
+.vba-solution-list {
+  display: grid;
+  gap: 16px;
+}
+
+.vba-solution-card {
+  padding: 22px 24px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+}
+
+.vba-solution-card .vba-info-icon {
+  flex: 0 0 auto;
+  margin-bottom: 0;
+}
+
+.vba-proof-visual {
+  padding: 26px;
+}
+
+.vba-proof-image {
+  display: block;
+  width: 100%;
+  min-height: 100%;
+  border-radius: 24px;
+  border: 1px solid var(--line);
+  object-fit: cover;
+  box-shadow: 0 22px 42px rgba(0, 0, 0, 0.26);
+}
+
+.vba-proof-screen {
+  min-height: 100%;
+  padding: 24px;
+  display: grid;
+  gap: 24px;
+}
+
+.vba-proof-nodes {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 14px;
+}
+
+.vba-proof-nodes span {
+  min-height: 92px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 18px;
+  border-radius: 22px;
+  border: 1px solid rgba(103, 232, 249, 0.16);
+  background: linear-gradient(180deg, rgba(103, 232, 249, 0.08), rgba(255, 255, 255, 0.02));
+  color: var(--text);
+  font-weight: 600;
+}
+
+.vba-checklist {
+  margin-top: 24px;
+  list-style: none;
+  display: grid;
+  gap: 14px;
+}
+
+.vba-checklist li {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.vba-checklist svg {
+  width: 18px;
+  height: 18px;
+  flex: 0 0 auto;
+  color: var(--success);
+}
+
+.vba-results-grid {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+.vba-result-card {
+  padding: 30px;
+}
+
 .service-grid,
 .testimonial-grid,
 .benefit-grid {
@@ -1281,7 +1560,12 @@ textarea:focus {
   .footer-grid,
   .service-grid,
   .testimonial-grid,
-  .benefit-grid {
+  .benefit-grid,
+  .vba-card-grid,
+  .vba-results-grid,
+  .vba-solution-shell,
+  .vba-proof-grid,
+  .vba-hero {
     grid-template-columns: 1fr;
   }
 
@@ -1305,6 +1589,10 @@ textarea:focus {
 
   .nav {
     gap: 16px;
+  }
+
+  .vba-hero-copy .section-title {
+    max-width: 14ch;
   }
 }
 
@@ -1388,6 +1676,11 @@ textarea:focus {
   .carousel-card {
     flex-basis: calc((100% - 18px) / 2);
     min-height: 0;
+  }
+
+  .vba-dashboard-metrics,
+  .vba-proof-nodes {
+    grid-template-columns: 1fr;
   }
 }
 
@@ -1487,7 +1780,12 @@ textarea:focus {
   .scoreboard,
   .contact-shell,
   .impact-card,
-  .benefit-card {
+  .benefit-card,
+  .vba-hero,
+  .vba-info-card,
+  .vba-solution-card,
+  .vba-proof-visual,
+  .vba-result-card {
     padding: 22px;
   }
 
@@ -1495,6 +1793,10 @@ textarea:focus {
   #servicos .section-title,
   #depoimentos .section-title {
     font-size: clamp(1.55rem, 7vw, 2.1rem);
+  }
+
+  .vba-subtitle {
+    font-size: clamp(1.4rem, 6vw, 1.9rem);
   }
 
   .map-panel,
@@ -1513,6 +1815,15 @@ textarea:focus {
   .btn-lg,
   .btn-sm {
     width: 100%;
+  }
+
+  .vba-solution-card {
+    align-items: flex-start;
+    flex-direction: column-reverse;
+  }
+
+  .vba-visual {
+    min-height: 0;
   }
 
   .whatsapp-float {
