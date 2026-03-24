@@ -1194,6 +1194,10 @@ textarea:focus {
   gap: 4px;
 }
 
+.footer-links {
+  gap: 0;
+}
+
 .footer-links a,
 .footer-social a {
   display: inline-flex;
@@ -1204,8 +1208,9 @@ textarea:focus {
 }
 
 .footer-links a {
+  display: block;
   min-height: auto;
-  padding: 4px 0;
+  padding: 0;
 }
 
 .footer-social a {
