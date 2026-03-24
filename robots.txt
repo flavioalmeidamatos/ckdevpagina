@@ -1,5 +1,2 @@
 User-agent: *
-Allow: /
-Disallow: /stitch/
-
-Sitemap: https://resolveplanilhas.com.br/sitemap.xml
+Disallow: /
