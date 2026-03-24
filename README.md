@@ -17,7 +17,7 @@ Depois abra:
 
 O projeto esta preparado para deploy estatico na Vercel.
 
-Arquivos adicionados para isso:
+Arquivos usados no deploy:
 
 - `vercel.json`: ativa o build da Vercel para este projeto
 - `.vercelignore`: impede o envio de arquivos internos e da pasta `stitch`
@@ -46,7 +46,7 @@ Se `SITE_URL` nao for definida, o build tenta usar automaticamente `VERCEL_PROJE
 - `stitch/index.html`: painel local para navegar nas telas do Stitch
 - `stitch/project-map.json`: metadados do projeto, telas e posicoes
 - `stitch/reference/`: conjunto curado das exports mais uteis
-- `stitch/archive/`: variacoes secundarias mantidas apenas para consulta
+- `stitch/archive/`: variacoes secundarias mantidas apenas para consulta local
 - `stitch/screens/`: HTML bruto exportado do Stitch
 - `stitch/screens-resolved/`: HTML ajustado para abrir melhor fora do Stitch
 - `stitch/screenshots/`: capturas das telas disponiveis
@@ -54,15 +54,13 @@ Se `SITE_URL` nao for definida, o build tenta usar automaticamente `VERCEL_PROJE
 ## Observacoes
 
 - A landing principal agora usa fontes e icones locais, sem dependencia de CDN.
-- O formulario principal envia pelo FormSubmit e monta o `_next` dinamicamente com a URL atual do site.
+- O formulario principal envia via AJAX para o FormSubmit e monta o `_next` dinamicamente com a URL atual do site.
+- O deploy de producao nao envia a pasta `stitch/` para a Vercel.
 - Algumas telas exportadas pelo Stitch vieram com placeholders internos; por isso deixei tambem versoes `resolved`.
 - Em deploys que nao sao de producao, o `robots.txt` passa a bloquear indexacao automaticamente.
 
 ## Encaminhamento por e-mail
 
-O botao `Solicitar diagnostico inicial` usa o FormSubmit e encaminha o conteudo para o endpoint configurado no HTML:
-
-- link publico: `https://formsubmit.co/el/wuwupo`
-- endpoint AJAX: `https://formsubmit.co/ajax/wuwupo`
+O botao `Solicitar diagnostico inicial` usa o `action` configurado no formulario como origem e converte esse endpoint para a rota AJAX do FormSubmit no navegador.
 
 Para rodar localmente, basta `npm start`. O envio nao depende de backend Python.

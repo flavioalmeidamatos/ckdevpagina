@@ -430,10 +430,6 @@ a {
   height: 1rem;
 }
 
-.about-drawer-section > .container > .testimonial-carousel-shell {
-  display: none;
-}
-
 .hero {
   min-height: auto;
   display: flex;
@@ -748,8 +744,7 @@ a {
   align-items: stretch;
 }
 
-.vba-dashboard-card,
-.vba-proof-screen {
+.vba-dashboard-card {
   width: 100%;
   border-radius: 28px;
   border: 1px solid var(--line);
@@ -765,8 +760,7 @@ a {
   gap: 22px;
 }
 
-.vba-dashboard-top,
-.vba-proof-screen-head {
+.vba-dashboard-top {
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -775,8 +769,7 @@ a {
   font-weight: 600;
 }
 
-.vba-dashboard-top svg,
-.vba-proof-screen-head svg {
+.vba-dashboard-top svg {
   width: 20px;
   height: 20px;
   color: var(--accent);
@@ -931,33 +924,6 @@ a {
   border: 1px solid var(--line);
   object-fit: cover;
   box-shadow: 0 22px 42px rgba(0, 0, 0, 0.26);
-}
-
-.vba-proof-screen {
-  min-height: 100%;
-  padding: 24px;
-  display: grid;
-  gap: 24px;
-}
-
-.vba-proof-nodes {
-  display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: 14px;
-}
-
-.vba-proof-nodes span {
-  min-height: 92px;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  text-align: center;
-  padding: 18px;
-  border-radius: 22px;
-  border: 1px solid rgba(103, 232, 249, 0.16);
-  background: linear-gradient(180deg, rgba(103, 232, 249, 0.08), rgba(255, 255, 255, 0.02));
-  color: var(--text);
-  font-weight: 600;
 }
 
 .vba-checklist {
@@ -1192,12 +1158,6 @@ a {
 
 #depoimentos .testimonial-carousel-shell {
   margin-top: 20px;
-}
-
-main > .testimonial-carousel-shell {
-  width: min(var(--container), calc(100% - 32px));
-  margin-left: auto;
-  margin-right: auto;
 }
 
 .testimonial-carousel-header {
@@ -1678,8 +1638,7 @@ textarea:focus {
     min-height: 0;
   }
 
-  .vba-dashboard-metrics,
-  .vba-proof-nodes {
+  .vba-dashboard-metrics {
     grid-template-columns: 1fr;
   }
 }

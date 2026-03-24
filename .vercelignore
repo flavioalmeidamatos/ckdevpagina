@@ -1,4 +1,4 @@
-stitch
-__pycache__
-.git
+stitch/
+.git/
+.gitignore
 README.md
